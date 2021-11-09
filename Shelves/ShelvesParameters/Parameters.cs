@@ -4,11 +4,34 @@ namespace ShelvesParameters
 {
     public class Parameters
     {
+        /// <summary>
+        /// Толщина досок
+        /// </summary>
         private int _thickness;
+
+        /// <summary>
+        /// Длина полок
+        /// </summary>
         private int _length;
+
+        /// <summary>
+        /// Ширина полок
+        /// </summary>
         private int _width;
+
+        /// <summary>
+        /// Высота левой стенки
+        /// </summary>
         private int _leftWallHeight;
+
+        /// <summary>
+        /// Высота правой стенки
+        /// </summary>
         private int _rightWallHeight;
+
+        /// <summary>
+        /// Высота общей стенки
+        /// </summary>
         private int _commonWallHeight;
 
         /// <summary>

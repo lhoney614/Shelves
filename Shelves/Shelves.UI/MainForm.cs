@@ -5,10 +5,45 @@ using ShelvesParameters;
 
 namespace Shelves.UI
 {
+    /// <summary>
+    /// Главная форма для ввода параметров
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Создание переменной типа Parameters
+        /// Хранит вводимые в форме параметры
+        /// </summary>
         private Parameters _parameters;
 
+        /// <summary>
+        /// Толщина досок
+        /// </summary>
+        private int _thickness;
+
+        /// <summary>
+        /// Длина полок
+        /// </summary>
+        private int _length;
+
+        /// <summary>
+        /// Ширина полок
+        /// </summary>
+        private int _width;
+
+        /// <summary>
+        /// Высота левой стенки
+        /// </summary>
+        private int _leftWallHeight;
+
+        /// <summary>
+        /// Высота правой стенки
+        /// </summary>
+        private int _rightWallHeight;
+
+        /// <summary>
+        /// Загрузка главной формы
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -16,9 +51,9 @@ namespace Shelves.UI
         }
 
         /// <summary>
-        /// Проверка на соответствие типа данных int
+        /// Проверка на соответствие вводимых данных типу int
         /// </summary>
-        /// <param name="textBox"></param>
+        /// <param name="textBox">ссылка на соответствующий TextBox</param>
         /// <returns></returns>
         public int CheckValueType(ref TextBox textBox)
         {
@@ -43,15 +78,12 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxA_TextChanged(object sender, EventArgs e)
         {
-            var value = CheckValueType(ref textBoxA);
-            if (value == 0)
-            {
-                return;
-            }
-            
+            _thickness = CheckValueType(ref textBoxA);
+            if (_thickness == 0) return;
+
             try
             {
-                _parameters.Thickness = value;
+                _parameters.Thickness = _thickness;
                 textBoxA.BackColor = Color.White;
             }
             catch (Exception exception)
@@ -68,15 +100,12 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxB_TextChanged(object sender, EventArgs e)
         {
-            var value = CheckValueType(ref textBoxB);
-            if (value == 0)
-            {
-                return;
-            }
+            _length = CheckValueType(ref textBoxB);
+            if (_length == 0) return;
 
             try
             {
-                _parameters.Length = value;
+                _parameters.Length = _length;
                 textBoxB.BackColor = Color.White;
             }
             catch (Exception exception)
@@ -93,15 +122,12 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxC_TextChanged(object sender, EventArgs e)
         {
-            var value = CheckValueType(ref textBoxC);
-            if (value == 0)
-            {
-                return;
-            }
+            _width = CheckValueType(ref textBoxC);
+            if (_width == 0) return;
 
             try
             {
-                _parameters.Width = value;
+                _parameters.Width = _width;
                 textBoxC.BackColor = Color.White;
             }
             catch (Exception exception)
@@ -118,15 +144,12 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxD_TextChanged(object sender, EventArgs e)
         {
-            var value = CheckValueType(ref textBoxD);
-            if (value == 0)
-            {
-                return;
-            }
+            _leftWallHeight = CheckValueType(ref textBoxD);
+            if (_leftWallHeight == 0) return;
 
             try
             {
-                _parameters.LeftWallHeight = value;
+                _parameters.LeftWallHeight = _leftWallHeight;
                 textBoxD.BackColor = Color.White;
             }
             catch (Exception exception)
@@ -143,15 +166,12 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxE_TextChanged(object sender, EventArgs e)
         {
-            var value = CheckValueType(ref textBoxE);
-            if (value == 0)
-            {
-                return;
-            }
+            _rightWallHeight = CheckValueType(ref textBoxE);
+            if (_rightWallHeight == 0) return;
 
             try
             {
-                _parameters.RightWallHeight = value;
+                _parameters.RightWallHeight = _rightWallHeight;
                 textBoxE.BackColor = Color.White;
             }
             catch (Exception exception)
@@ -168,15 +188,9 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void buttonBuild_Click(object sender, EventArgs e)
         {
-            var thickness = Convert.ToInt32(textBoxA.Text);
-            var length = Convert.ToInt32(textBoxB.Text);
-            var width = Convert.ToInt32(textBoxC.Text);
-            var leftWallHeight = Convert.ToInt32(textBoxD.Text);
-            var rightWallHeight = Convert.ToInt32(textBoxE.Text);
-
             try
             {
-                _parameters = new Parameters(thickness, length, width, leftWallHeight, rightWallHeight);
+                _parameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
             }
             catch (Exception)
             {
