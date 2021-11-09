@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28307.1401
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelves.UI", "Shelves.UI\Shelves.UI.csproj", "{660C0077-3B10-4D2B-8304-B1434DBF6D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelvesParameters", "Shelves\ShelvesParameters.csproj", "{8651427A-9C8E-4636-82C6-D081B7E55147}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelvesBuilder", "ShelvesBuilder\ShelvesBuilder.csproj", "{C7158FD5-7E60-49D3-99BD-8715A5FD03A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KOMPASConnector", "KOMPASConnector\KOMPASConnector.csproj", "{521D0576-AF50-4404-9A37-BAC9AEDCA81A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelvesParameters", "ShelvesParameters\ShelvesParameters.csproj", "{6604C537-5CD9-4FAC-B3F2-6D2E8077C93F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{660C0077-3B10-4D2B-8304-B1434DBF6D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{660C0077-3B10-4D2B-8304-B1434DBF6D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{660C0077-3B10-4D2B-8304-B1434DBF6D3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8651427A-9C8E-4636-82C6-D081B7E55147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8651427A-9C8E-4636-82C6-D081B7E55147}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8651427A-9C8E-4636-82C6-D081B7E55147}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8651427A-9C8E-4636-82C6-D081B7E55147}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C7158FD5-7E60-49D3-99BD-8715A5FD03A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C7158FD5-7E60-49D3-99BD-8715A5FD03A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7158FD5-7E60-49D3-99BD-8715A5FD03A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{521D0576-AF50-4404-9A37-BAC9AEDCA81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521D0576-AF50-4404-9A37-BAC9AEDCA81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{521D0576-AF50-4404-9A37-BAC9AEDCA81A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6604C537-5CD9-4FAC-B3F2-6D2E8077C93F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6604C537-5CD9-4FAC-B3F2-6D2E8077C93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6604C537-5CD9-4FAC-B3F2-6D2E8077C93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6604C537-5CD9-4FAC-B3F2-6D2E8077C93F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

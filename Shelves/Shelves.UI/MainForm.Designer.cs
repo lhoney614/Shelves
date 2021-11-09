@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxC = new System.Windows.Forms.TextBox();
@@ -50,6 +51,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -308,6 +310,7 @@
         private System.Windows.Forms.TextBox textBoxB;
         private System.Windows.Forms.TextBox textBoxE;
         private System.Windows.Forms.TextBox textBoxD;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

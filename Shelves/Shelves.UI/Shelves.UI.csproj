@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShelvesParameters\ShelvesParameters.csproj">
+      <Project>{6604c537-5cd9-4fac-b3f2-6d2e8077c93f}</Project>
+      <Name>ShelvesParameters</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

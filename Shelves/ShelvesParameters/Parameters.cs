@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shelves
+namespace ShelvesParameters
 {
     public class Parameters
     {
@@ -21,7 +17,7 @@ namespace Shelves
         public int Thickness
         {
             get => _thickness;
-            private set
+            set
             {
                 if (value < 15 || value > 20)
                 {
@@ -38,7 +34,7 @@ namespace Shelves
         public int Length
         {
             get => _length;
-            private set
+            set
             {
                 if (value < 500 || value > 700)
                 {
@@ -55,7 +51,7 @@ namespace Shelves
         public int Width
         {
             get => _width;
-            private set
+            set
             {
                 if (value < 200 || value > 300)
                 {
@@ -72,7 +68,7 @@ namespace Shelves
         public int LeftWallHeight
         {
             get => _leftWallHeight;
-            private set
+            set
             {
                 if (value < 150 || value > 200)
                 {
@@ -89,7 +85,7 @@ namespace Shelves
         public int RightWallHeight
         {
             get => _rightWallHeight;
-            private set
+            set
             {
                 if (value < 100 || value > 150)
                 {
@@ -113,6 +109,11 @@ namespace Shelves
             get => _commonWallHeight;
             private set => _commonWallHeight = value + Thickness + LeftWallHeight + RightWallHeight;
         }
+
+        /// <summary>
+        /// Пустой конструктор класса Parameters
+        /// </summary>
+        public Parameters() { }
 
         /// <summary>
         /// Конструктор класса Parameters
