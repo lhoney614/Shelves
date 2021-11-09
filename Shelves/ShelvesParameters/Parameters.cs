@@ -2,6 +2,9 @@
 
 namespace ShelvesParameters
 {
+    /// <summary>
+    /// Класс логики, хранящий значения параметров полок
+    /// </summary>
     public class Parameters
     {
         /// <summary>
@@ -35,20 +38,29 @@ namespace ShelvesParameters
         private int _commonWallHeight;
 
         /// <summary>
+        /// Валидация значений параметров
+        /// </summary>
+        /// <param name="param">ссылка на параметр, с которым идет работа</param>
+        /// <param name="value">значение, которое должно быть присвоено</param>
+        /// <param name="min">минимальное значение параметра</param>
+        /// <param name="max">максимальное значение параметра</param>
+        private static void ValidationValue(ref int param, int value, int min, int max)
+        {
+            if (value < min || value > max)
+            {
+                throw new ArgumentException("Значение вне диапазона");
+            }
+            
+            param = value;
+        }
+
+        /// <summary>
         /// Возвращает или задает значение толщины досок
         /// </summary>
         public int Thickness
         {
             get => _thickness;
-            set
-            {
-                if (value < 15 || value > 20)
-                {
-                    throw new ArgumentException("Значение толщины вне диапазона");
-                }
-
-                _thickness = value;
-            }
+            set => ValidationValue(ref _thickness, value, 15, 20);
         }
 
         /// <summary>
@@ -57,15 +69,7 @@ namespace ShelvesParameters
         public int Length
         {
             get => _length;
-            set
-            {
-                if (value < 500 || value > 700)
-                {
-                    throw new ArgumentException("Значение длины полок вне диапазона");
-                }
-
-                _length = value;
-            }
+            set => ValidationValue(ref _length, value, 500, 700);
         }
 
         /// <summary>
@@ -74,15 +78,7 @@ namespace ShelvesParameters
         public int Width
         {
             get => _width;
-            set
-            {
-                if (value < 200 || value > 300)
-                {
-                    throw new ArgumentException("Значение ширины полок вне диапазона");
-                }
-
-                _width = value;
-            }
+            set => ValidationValue(ref _width, value, 200, 300);
         }
 
         /// <summary>
@@ -91,15 +87,7 @@ namespace ShelvesParameters
         public int LeftWallHeight
         {
             get => _leftWallHeight;
-            set
-            {
-                if (value < 150 || value > 200)
-                {
-                    throw new ArgumentException("Значение длины полок вне диапазона");
-                }
-
-                _leftWallHeight = value;
-            }
+            set => ValidationValue(ref _leftWallHeight, value, 150, 200);
         }
 
         /// <summary>
@@ -110,17 +98,12 @@ namespace ShelvesParameters
             get => _rightWallHeight;
             set
             {
-                if (value < 100 || value > 150)
-                {
-                    throw new ArgumentException("Значение длины полок вне диапазона");
-                }
-
                 if (LeftWallHeight - value != 50)
                 {
                     throw new ArgumentException("Разность между левой и правой стенкой не равна 50");
                 }
 
-                _rightWallHeight = value;
+                ValidationValue(ref _rightWallHeight, value, 100, 150);
             }
         }
 
@@ -136,7 +119,10 @@ namespace ShelvesParameters
         /// <summary>
         /// Пустой конструктор класса Parameters
         /// </summary>
-        public Parameters() { }
+        public Parameters()
+        {
+
+        }
 
         /// <summary>
         /// Конструктор класса Parameters

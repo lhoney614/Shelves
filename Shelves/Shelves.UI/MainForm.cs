@@ -60,17 +60,19 @@ namespace Shelves.UI
             try
             {
                 var value = Convert.ToInt32(textBox.Text);
-                toolTip1.SetToolTip(textBox, "");
+                toolTip.SetToolTip(textBox, "");
+                buttonBuild.Enabled = true;
                 return value;
             }
             catch (Exception)
             {
-                toolTip1.SetToolTip(textBox, "Недопустимые символы");
+                toolTip.SetToolTip(textBox, "Недопустимые символы");
                 textBox.BackColor = Color.DarkSalmon;
+                buttonBuild.Enabled = false;
                 return 0;
             }
         }
-
+        
         /// <summary>
         /// Толщина досок, из которых будут сделаны полки
         /// </summary>
@@ -85,11 +87,14 @@ namespace Shelves.UI
             {
                 _parameters.Thickness = _thickness;
                 textBoxA.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxA, "");
+                buttonBuild.Enabled = true;
             }
             catch (Exception exception)
             {
                 textBoxA.BackColor = Color.DarkSalmon;
-                toolTip1.SetToolTip(textBoxA, exception.Message);
+                toolTip.SetToolTip(textBoxA, exception.Message);
+                buttonBuild.Enabled = false;
             }
         }
 
@@ -107,11 +112,14 @@ namespace Shelves.UI
             {
                 _parameters.Length = _length;
                 textBoxB.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxB, "");
+                buttonBuild.Enabled = true;
             }
             catch (Exception exception)
             {
                 textBoxB.BackColor = Color.DarkSalmon;
-                toolTip1.SetToolTip(textBoxB, exception.Message);
+                toolTip.SetToolTip(textBoxB, exception.Message);
+                buttonBuild.Enabled = false;
             }
         }
 
@@ -129,11 +137,14 @@ namespace Shelves.UI
             {
                 _parameters.Width = _width;
                 textBoxC.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxC, "");
+                buttonBuild.Enabled = true;
             }
             catch (Exception exception)
             {
                 textBoxC.BackColor = Color.DarkSalmon;
-                toolTip1.SetToolTip(textBoxC, exception.Message);
+                toolTip.SetToolTip(textBoxC, exception.Message);
+                buttonBuild.Enabled = false;
             }
         }
 
@@ -151,11 +162,14 @@ namespace Shelves.UI
             {
                 _parameters.LeftWallHeight = _leftWallHeight;
                 textBoxD.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxD, "");
+                buttonBuild.Enabled = true;
             }
             catch (Exception exception)
             {
                 textBoxD.BackColor = Color.DarkSalmon;
-                toolTip1.SetToolTip(textBoxD, exception.Message);
+                toolTip.SetToolTip(textBoxD, exception.Message);
+                buttonBuild.Enabled = false;
             }
         }
 
@@ -173,11 +187,14 @@ namespace Shelves.UI
             {
                 _parameters.RightWallHeight = _rightWallHeight;
                 textBoxE.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxE, "");
+                buttonBuild.Enabled = true;
             }
             catch (Exception exception)
             {
                 textBoxE.BackColor = Color.DarkSalmon;
-                toolTip1.SetToolTip(textBoxE, exception.Message);
+                toolTip.SetToolTip(textBoxE, exception.Message);
+                buttonBuild.Enabled = false;
             }
         }
 
@@ -191,11 +208,11 @@ namespace Shelves.UI
             try
             {
                 _parameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
+                buttonBuild.Enabled = true;
             }
-            catch (Exception)
+            catch
             {
-                MessageBox.Show(@"Проверьте правильность введенных значений на соответствие с допустимыми границами",
-                    @"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                buttonBuild.Enabled = false;
             }
         }
     }
