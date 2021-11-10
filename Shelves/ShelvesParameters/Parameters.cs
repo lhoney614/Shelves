@@ -40,18 +40,17 @@ namespace ShelvesParameters
         /// <summary>
         /// Валидация значений параметров
         /// </summary>
-        /// <param name="param">ссылка на параметр, с которым идет работа</param>
         /// <param name="value">значение, которое должно быть присвоено</param>
         /// <param name="min">минимальное значение параметра</param>
         /// <param name="max">максимальное значение параметра</param>
-        private static void ValidationValue(ref int param, int value, int min, int max)
+        private static int ValidationValue(int value, int min, int max)
         {
             if (value < min || value > max)
             {
                 throw new ArgumentException("Значение вне диапазона");
             }
-            
-            param = value;
+
+            return value;
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace ShelvesParameters
         public int Thickness
         {
             get => _thickness;
-            set => ValidationValue(ref _thickness, value, 15, 20);
+            set => _thickness = ValidationValue(value, 15, 20);
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace ShelvesParameters
         public int Length
         {
             get => _length;
-            set => ValidationValue(ref _length, value, 500, 700);
+            set => _length = ValidationValue(value, 500, 700);
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace ShelvesParameters
         public int Width
         {
             get => _width;
-            set => ValidationValue(ref _width, value, 200, 300);
+            set => _width = ValidationValue(value, 200, 300);
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace ShelvesParameters
         public int LeftWallHeight
         {
             get => _leftWallHeight;
-            set => ValidationValue(ref _leftWallHeight, value, 150, 200);
+            set => _leftWallHeight = ValidationValue(value, 150, 200);
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace ShelvesParameters
                     throw new ArgumentException("Разность между левой и правой стенкой не равна 50");
                 }
 
-                ValidationValue(ref _rightWallHeight, value, 100, 150);
+                _rightWallHeight = ValidationValue(value, 100, 150);
             }
         }
 

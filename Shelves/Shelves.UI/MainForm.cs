@@ -55,7 +55,7 @@ namespace Shelves.UI
         /// </summary>
         /// <param name="textBox">ссылка на соответствующий TextBox</param>
         /// <returns></returns>
-        public int CheckValueType(ref TextBox textBox)
+        private int CheckValueType(TextBox textBox)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxA_TextChanged(object sender, EventArgs e)
         {
-            _thickness = CheckValueType(ref textBoxA);
+            _thickness = CheckValueType(textBoxA);
             if (_thickness == 0) return;
 
             try
@@ -105,7 +105,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxB_TextChanged(object sender, EventArgs e)
         {
-            _length = CheckValueType(ref textBoxB);
+            _length = CheckValueType(textBoxB);
             if (_length == 0) return;
 
             try
@@ -130,7 +130,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxC_TextChanged(object sender, EventArgs e)
         {
-            _width = CheckValueType(ref textBoxC);
+            _width = CheckValueType(textBoxC);
             if (_width == 0) return;
 
             try
@@ -155,7 +155,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxD_TextChanged(object sender, EventArgs e)
         {
-            _leftWallHeight = CheckValueType(ref textBoxD);
+            _leftWallHeight = CheckValueType(textBoxD);
             if (_leftWallHeight == 0) return;
 
             try
@@ -180,7 +180,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void textBoxE_TextChanged(object sender, EventArgs e)
         {
-            _rightWallHeight = CheckValueType(ref textBoxE);
+            _rightWallHeight = CheckValueType(textBoxE);
             if (_rightWallHeight == 0) return;
 
             try
