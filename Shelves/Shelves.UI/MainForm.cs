@@ -14,7 +14,7 @@ namespace Shelves.UI
         /// Создание переменной типа Parameters
         /// Хранит вводимые в форме параметры
         /// </summary>
-        private Parameters _parameters;
+        private Parameters _shelvesParameters;
 
         /// <summary>
         /// Толщина досок
@@ -47,7 +47,7 @@ namespace Shelves.UI
         public MainForm()
         {
             InitializeComponent();
-            _parameters = new Parameters();
+            _shelvesParameters = new Parameters();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Shelves.UI
 
             try
             {
-                _parameters.Thickness = _thickness;
+                _shelvesParameters.Thickness = _thickness;
                 textBoxA.BackColor = Color.White;
                 toolTip.SetToolTip(textBoxA, "");
                 buttonBuild.Enabled = true;
@@ -110,7 +110,7 @@ namespace Shelves.UI
 
             try
             {
-                _parameters.Length = _length;
+                _shelvesParameters.Length = _length;
                 textBoxB.BackColor = Color.White;
                 toolTip.SetToolTip(textBoxB, "");
                 buttonBuild.Enabled = true;
@@ -135,7 +135,7 @@ namespace Shelves.UI
 
             try
             {
-                _parameters.Width = _width;
+                _shelvesParameters.Width = _width;
                 textBoxC.BackColor = Color.White;
                 toolTip.SetToolTip(textBoxC, "");
                 buttonBuild.Enabled = true;
@@ -160,7 +160,7 @@ namespace Shelves.UI
 
             try
             {
-                _parameters.LeftWallHeight = _leftWallHeight;
+                _shelvesParameters.LeftWallHeight = _leftWallHeight;
                 textBoxD.BackColor = Color.White;
                 toolTip.SetToolTip(textBoxD, "");
                 buttonBuild.Enabled = true;
@@ -185,7 +185,7 @@ namespace Shelves.UI
 
             try
             {
-                _parameters.RightWallHeight = _rightWallHeight;
+                _shelvesParameters.RightWallHeight = _rightWallHeight;
                 textBoxE.BackColor = Color.White;
                 toolTip.SetToolTip(textBoxE, "");
                 buttonBuild.Enabled = true;
@@ -207,7 +207,7 @@ namespace Shelves.UI
         {
             try
             {
-                _parameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
+                _shelvesParameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
                 buttonBuild.Enabled = true;
             }
             catch
