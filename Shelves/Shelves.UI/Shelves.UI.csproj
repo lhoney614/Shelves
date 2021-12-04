@@ -80,6 +80,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KOMPASConnector\APIConnector.csproj">
+      <Project>{521d0576-af50-4404-9a37-bac9aedca81a}</Project>
+      <Name>APIConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShelvesBuilder\ShelvesBuilder.csproj">
+      <Project>{c7158fd5-7e60-49d3-99bd-8715a5fd03a5}</Project>
+      <Name>ShelvesBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShelvesParameters\ShelvesParameters.csproj">
       <Project>{6604c537-5cd9-4fac-b3f2-6d2e8077c93f}</Project>
       <Name>ShelvesParameters</Name>

@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using ShelvesParameters;
+using ShelvesBuilder;
+using APIConnector;
 
 namespace Shelves.UI
 {
@@ -15,6 +17,8 @@ namespace Shelves.UI
         /// Хранит вводимые в форме параметры
         /// </summary>
         private Parameters _shelvesParameters;
+
+        private KOMPASConnector _kompasConnector;
 
         /// <summary>
         /// Толщина досок
@@ -209,6 +213,7 @@ namespace Shelves.UI
             {
                 _shelvesParameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
                 buttonBuild.Enabled = true;
+                _kompasConnector = new KOMPASConnector();
             }
             catch
             {

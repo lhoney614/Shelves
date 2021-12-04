@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelves.UI", "Shelves.UI\Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelvesBuilder", "ShelvesBuilder\ShelvesBuilder.csproj", "{C7158FD5-7E60-49D3-99BD-8715A5FD03A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KOMPASConnector", "KOMPASConnector\KOMPASConnector.csproj", "{521D0576-AF50-4404-9A37-BAC9AEDCA81A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIConnector", "KOMPASConnector\APIConnector.csproj", "{521D0576-AF50-4404-9A37-BAC9AEDCA81A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelvesParameters", "ShelvesParameters\ShelvesParameters.csproj", "{6604C537-5CD9-4FAC-B3F2-6D2E8077C93F}"
 EndProject
