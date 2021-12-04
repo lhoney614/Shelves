@@ -44,5 +44,15 @@
     <Compile Include="Builder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KOMPASConnector\APIConnector.csproj">
+      <Project>{521d0576-af50-4404-9a37-bac9aedca81a}</Project>
+      <Name>APIConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShelvesParameters\ShelvesParameters.csproj">
+      <Project>{6604c537-5cd9-4fac-b3f2-6d2e8077c93f}</Project>
+      <Name>ShelvesParameters</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

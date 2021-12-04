@@ -35,8 +35,8 @@
       <HintPath>..\..\..\..\..\Desktop\CSharp\Common\Kompas6API5.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="KompasAPI7">
-      <HintPath>..\..\..\..\..\Desktop\CSharp\Common\KompasAPI7.dll</HintPath>
+    <Reference Include="Kompas6Constants3D">
+      <HintPath>..\..\..\..\..\Desktop\CSharp\Common\Kompas6Constants3D.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KOMPASConnector.cs" />
+    <Compile Include="KompasConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

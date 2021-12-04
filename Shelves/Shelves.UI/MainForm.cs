@@ -18,7 +18,7 @@ namespace Shelves.UI
         /// </summary>
         private Parameters _shelvesParameters;
 
-        private KOMPASConnector _kompasConnector;
+        private KompasConnector _kompasConnector;
 
         /// <summary>
         /// Толщина досок
@@ -213,7 +213,7 @@ namespace Shelves.UI
             {
                 _shelvesParameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
                 buttonBuild.Enabled = true;
-                _kompasConnector = new KOMPASConnector();
+                _kompasConnector = new KompasConnector();
             }
             catch
             {

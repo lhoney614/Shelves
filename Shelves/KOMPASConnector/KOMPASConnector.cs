@@ -1,21 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KompasAPI7;
 using Kompas6API5;
+using Kompas6Constants3D;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace APIConnector
 {
-    public class KOMPASConnector
+    public class KompasConnector
     {
+        /// <summary>
+        /// Интерфейс создания 3D-документа
+        /// </summary>
         private ksDocument3D _doc3D;
 
+        /// <summary>
+        /// Интерфейс API Компас-3D
+        /// </summary>
         private KompasObject _kompas;
 
+        /// <summary>
+        /// Интерфейс компонента Компас-3D
+        /// </summary>
         private ksPart _ksPart;
+
+        /// <summary>
+        /// Переменная, хранящая название программы
+        /// </summary>
+        private string _progId = "KOMPAS.Application.5";
 
         public ksDocument3D Doc3D
         {
@@ -35,15 +46,42 @@ namespace APIConnector
             set;
         }
 
-        public KOMPASConnector()
+        /// <summary>
+        /// Конструктор класса KompasConnector
+        /// </summary>
+        public KompasConnector()
         {
-            OpenKompas();
+            try
+            {
+                //если программа открыта
+                _kompas = (KompasObject) Marshal.GetActiveObject(_progId);
+            }
+            catch (COMException)
+            {
+                //если программа еще не открыта
+                _kompas = (KompasObject) Activator.CreateInstance(Type.GetTypeFromProgID(_progId));
+                Thread.Sleep(500);
+            }
+
+            _kompas.Visible = true;
+            _kompas.ActivateControllerAPI();
         }
 
-        public void OpenKompas()
+        /// <summary>
+        /// Метод для создания нового компонента в Компас-3D
+        /// </summary>
+        public void GetNewPart()
         {
-            _kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
-            _kompas.ksMessage("Привет из Компаса!");
+            //получаем указатель на интерфейс документа трехмерной модели
+            _doc3D = (ksDocument3D) _kompas.Document3D();
+            //создаем документ-модель
+            _doc3D.Create();
+            //получаем интерфейс модели
+            _doc3D = (ksDocument3D) _kompas.ActiveDocument3D();
+            //получаем интерфейс компонента в соответствии с заданным типом
+            //pTop_Part - это главный компонент, в составе которого
+            //находится новый или редактируемый, или указанный компонент
+            _ksPart = (ksPart) _doc3D.GetPart((short) Part_Type.pTop_Part);
         }
     }
 }
