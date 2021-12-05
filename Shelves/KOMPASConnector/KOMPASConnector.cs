@@ -60,6 +60,12 @@ namespace APIConnector
             {
                 //если программа еще не открыта
                 _kompas = (KompasObject) Activator.CreateInstance(Type.GetTypeFromProgID(_progId));
+
+                //Придумать решение, не требующее задержки
+                //Костыль, который решает проблему, где апи
+                //не успевает полностью подключить,
+                //тем самым выбивая NullReferenceException при
+                //попытке его использовать
                 Thread.Sleep(500);
             }
 
