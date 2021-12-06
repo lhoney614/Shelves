@@ -18,10 +18,10 @@ namespace ShelvesBuilder
         /// </summary>
         private Parameters _parameters;
 
-        public Builder(Parameters param)
+        public Builder(KompasConnector connector, Parameters param)
         {
             _parameters = param;
-            _connector = new KompasConnector();
+            _connector = connector;
             _connector.GetNewPart();
 
             //Левая крайняя дощечка

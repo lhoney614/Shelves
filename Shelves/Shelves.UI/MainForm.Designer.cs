@@ -52,9 +52,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonBuild = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.minParamButton = new System.Windows.Forms.Button();
+            this.maxParamButton = new System.Windows.Forms.Button();
+            this.defaultPramButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -248,14 +253,14 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(429, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(613, 383);
+            this.pictureBox1.Size = new System.Drawing.Size(786, 517);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Location = new System.Drawing.Point(155, 366);
+            this.buttonBuild.Location = new System.Drawing.Point(168, 500);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(100, 30);
             this.buttonBuild.TabIndex = 3;
@@ -263,11 +268,54 @@
             this.buttonBuild.UseVisualStyleBackColor = true;
             this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.defaultPramButton);
+            this.groupBox3.Controls.Add(this.maxParamButton);
+            this.groupBox3.Controls.Add(this.minParamButton);
+            this.groupBox3.Location = new System.Drawing.Point(17, 345);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(406, 149);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Быстрые настройки";
+            // 
+            // minParamButton
+            // 
+            this.minParamButton.Location = new System.Drawing.Point(60, 31);
+            this.minParamButton.Name = "minParamButton";
+            this.minParamButton.Size = new System.Drawing.Size(284, 30);
+            this.minParamButton.TabIndex = 0;
+            this.minParamButton.Text = "Минимальные параметры";
+            this.minParamButton.UseVisualStyleBackColor = true;
+            this.minParamButton.Click += new System.EventHandler(this.minParamButton_Click);
+            // 
+            // maxParamButton
+            // 
+            this.maxParamButton.Location = new System.Drawing.Point(60, 67);
+            this.maxParamButton.Name = "maxParamButton";
+            this.maxParamButton.Size = new System.Drawing.Size(284, 30);
+            this.maxParamButton.TabIndex = 1;
+            this.maxParamButton.Text = "Максимальные параметры";
+            this.maxParamButton.UseVisualStyleBackColor = true;
+            this.maxParamButton.Click += new System.EventHandler(this.maxParamButton_Click);
+            // 
+            // defaultPramButton
+            // 
+            this.defaultPramButton.Location = new System.Drawing.Point(60, 103);
+            this.defaultPramButton.Name = "defaultPramButton";
+            this.defaultPramButton.Size = new System.Drawing.Size(284, 30);
+            this.defaultPramButton.TabIndex = 2;
+            this.defaultPramButton.Text = "Параметры по умолчанию";
+            this.defaultPramButton.UseVisualStyleBackColor = true;
+            this.defaultPramButton.Click += new System.EventHandler(this.defaultPramButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1053, 408);
+            this.ClientSize = new System.Drawing.Size(1228, 543);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox2);
@@ -283,6 +331,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -311,6 +360,10 @@
         private System.Windows.Forms.TextBox textBoxE;
         private System.Windows.Forms.TextBox textBoxD;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button defaultPramButton;
+        private System.Windows.Forms.Button maxParamButton;
+        private System.Windows.Forms.Button minParamButton;
     }
 }
 

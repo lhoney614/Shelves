@@ -203,6 +203,48 @@ namespace Shelves.UI
         }
 
         /// <summary>
+        /// Минимальные параметры полок
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void minParamButton_Click(object sender, EventArgs e)
+        {
+            textBoxA.Text = @"15";
+            textBoxB.Text = @"500";
+            textBoxC.Text = @"200";
+            textBoxD.Text = @"150";
+            textBoxE.Text = @"100";
+        }
+
+        /// <summary>
+        /// Максимальные параметры полок
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void maxParamButton_Click(object sender, EventArgs e)
+        {
+            textBoxA.Text = @"20";
+            textBoxB.Text = @"700";
+            textBoxC.Text = @"300";
+            textBoxD.Text = @"200";
+            textBoxE.Text = @"150";
+        }
+
+        /// <summary>
+        /// Параметры полок по умолчанию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void defaultPramButton_Click(object sender, EventArgs e)
+        {
+            textBoxA.Text = @"17";
+            textBoxB.Text = @"600";
+            textBoxC.Text = @"250";
+            textBoxD.Text = @"175";
+            textBoxE.Text = @"125";
+        }
+
+        /// <summary>
         /// Построение 3D-модели подвесных полок
         /// </summary>
         /// <param name="sender"></param>
@@ -214,12 +256,14 @@ namespace Shelves.UI
                 _shelvesParameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
                 buttonBuild.Enabled = true;
                 _kompasConnector = new KompasConnector();
-                var builder = new Builder(_shelvesParameters);
+                var builder = new Builder(_kompasConnector, _shelvesParameters);
             }
             catch
             {
                 buttonBuild.Enabled = false;
             }
         }
+
+        
     }
 }
