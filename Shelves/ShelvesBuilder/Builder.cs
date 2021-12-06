@@ -12,38 +12,51 @@ namespace ShelvesBuilder
         /// Коннектор для работы с Компас-3D
         /// </summary>
         private KompasConnector _connector;
-
+        
         /// <summary>
-        /// Параметры полок
+        /// Функция последовательного построения полок
         /// </summary>
-        private Parameters _parameters;
-
-        public Builder(KompasConnector connector, Parameters param)
+        /// <param name="connector"></param>
+        /// <param name="param"></param>
+        public void BuildShelves(KompasConnector connector, Parameters param)
         {
-            _parameters = param;
+            var parameters = param;
             _connector = connector;
-            _connector.GetNewPart();
-
+            
             //Левая крайняя дощечка
-            CreateVerticalShelf(1);
-
-            //Задняя дощечка верхней полки
-            CreateBackShelf(1);
+            CreateShelf(0, 0, parameters.Thickness,
+                parameters.LeftWallHeight + parameters.Thickness, parameters.Width);
 
             //Нижняя дощечка верхней полки
-            CreateDownShelf(1);
-
+            CreateShelf(parameters.Thickness, 0, parameters.Length,
+                parameters.Thickness, parameters.Width);
+            
+            //Задняя дощечка верхней полки
+            CreateShelf(parameters.Thickness, parameters.Thickness, 
+                parameters.Length, parameters.RightWallHeight, 
+                parameters.Thickness);
+            
             //Общая дощечка
-            CreateVerticalShelf(2);
+            CreateShelf(parameters.Length + parameters.Thickness, 
+                - parameters.CommonWallHeight + parameters.RightWallHeight, parameters.Thickness,
+                parameters.CommonWallHeight + parameters.Thickness,
+                parameters.Width);
 
             //Задняя дощечка нижней полки
-            CreateBackShelf(2);
+            CreateShelf(parameters.Length + parameters.Thickness * 2, 
+                -parameters.CommonWallHeight + parameters.RightWallHeight,
+                parameters.Length, parameters.Thickness, parameters.Width);
 
             //Нижняя дощечка нижней полки
-            CreateDownShelf(2);
+            CreateShelf(parameters.Length + parameters.Thickness * 2,
+                - parameters.LeftWallHeight, parameters.Length,
+                parameters.RightWallHeight, parameters.Thickness);
 
             //Правая крайняя дощечка
-            CreateVerticalShelf(3);
+            CreateShelf(parameters.Length * 2 + parameters.Thickness * 2,
+                - param.LeftWallHeight - parameters.Thickness,
+                param.Thickness, parameters.RightWallHeight + parameters.Thickness,
+                parameters.Width);
         }
 
         /// <summary>
@@ -62,17 +75,16 @@ namespace ShelvesBuilder
             var sketch = (ksEntity)_connector
                 .KsPart
                 .NewEntity((short)Obj3dType.o3d_sketch);
-
-
+            
             //Получить указатель на интерфейс параметров объектов или элементов
-            var sketchDef = (ksSketchDefinition)sketch.GetDefinition();
+            var sketchDefinition = (ksSketchDefinition)sketch.GetDefinition();
 
             //Изменить базовую плоскость эскиза
-            sketchDef.SetPlane(plane);
+            sketchDefinition.SetPlane(plane);
 
             //Создать объект в модели
             sketch.Create();
-            return sketchDef;
+            return sketchDefinition;
         }
 
         /// <summary>
@@ -80,30 +92,21 @@ namespace ShelvesBuilder
         /// </summary>
         /// <param name="sketchDefinition">Эскиз</param>
         /// <param name="thickness">Толщина</param>
-        /// <param name="side">Направление выдавливания</param>
         private void PressOutSketch(
             ksSketchDefinition sketchDefinition,
-            double thickness,
-            bool side = true)
+            double thickness)
         {
-            const ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossExtrusion;
-
             //Создать новый интерфейс объекта и получить указатель на него
-            var extrusionEntity = (ksEntity)_connector.KsPart.NewEntity((short)type);
+            var extrusionEntity = (ksEntity)_connector.KsPart.NewEntity((short)Obj3dType.o3d_bossExtrusion);
             
             //Интерфейс приклеенного элемента выдавливания
             var extrusionDefinition = (ksBossExtrusionDefinition)extrusionEntity.GetDefinition();
 
             //Установить параметры выдавливания в одном направлении
-            //side - направление
-            //тип выдавливания (строго на глубину)
+            //side - направление (true - прямое направление)
+            //тип выдавливания (0 -строго на глубину)
             //глубина выдавливания
-            extrusionDefinition.SetSideParam(side, (short)End_Type.etBlind, thickness);
-            extrusionDefinition.directionType = side
-            //прямое направление (наружу)
-                ? (short)Direction_Type.dtNormal
-            //обратное направление (внутрь)
-                : (short)Direction_Type.dtReverse;
+            extrusionDefinition.SetSideParam(true, 0, thickness);
 
             //Изменить указатель на интерфейс эскиза элемента
             extrusionDefinition.SetSketch(sketchDefinition);
@@ -113,89 +116,40 @@ namespace ShelvesBuilder
         }
 
         /// <summary>
-        /// Создает заднюю дощечку обеих полок
+        /// Создание дощечки по заданным параметрам
         /// </summary>
-        /// <param name="typeShelf">Верхняя или нижняя полка</param>
-        public void CreateBackShelf(int typeShelf)
+        /// <param name="x">Нижний левый угол</param>
+        /// <param name="y">Нижний левый угол</param>
+        /// <param name="width">Верхний правый угол</param>
+        /// <param name="height">Верхний правый угол</param>
+        /// <param name="thickness">Толщина выдавливания</param>
+        public void CreateShelf(int x, int y, int width, int height, int thickness)
         {
-            switch (typeShelf)
-            {
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
+            //Выбор плоскости для построения
+            var sketchDefinition = CreateSketch(Obj3dType.o3d_planeXOY);
+
+            //Войти в режим редактирования эскиза
+            var doc2D = (ksDocument2D)sketchDefinition.BeginEdit();
+
+            //Построение прямоугольника
+            var rectangleParam = (ksRectangleParam)_connector
+                .Kompas
+                .GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
+
+            rectangleParam.x = x;
+            rectangleParam.y = y;
+            rectangleParam.ang = 0;
+            rectangleParam.width = width;
+            rectangleParam.height = height;
+            rectangleParam.style = 1;
+
+            doc2D.ksRectangle(rectangleParam);
+
+            //Выйти из режима редактирования эскиза
+            sketchDefinition.EndEdit();
+
+            //Выдавливание детали
+            PressOutSketch(sketchDefinition, thickness);
         }
-
-        /// <summary>
-        /// Создает нижнюю дощечку обеих полок
-        /// </summary>
-        /// <param name="typeShelf">Верхняя или нижняя полка</param>
-        public void CreateDownShelf(int typeShelf)
-        {
-            switch (typeShelf)
-            {
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Создает вертикальные дощечки:
-        /// левую крайнюю, правую крайнюю и общую
-        /// </summary>
-        /// <param name="typeShelf">Тип одной из трех дощечек</param>
-        public void CreateVerticalShelf(int typeShelf)
-        {
-            switch (typeShelf)
-            {
-                case 1:
-                    //
-                    //Obj3dType - это тип объекта документа-модели (плоскость XOY)
-                    var sketchDefinition = CreateSketch(Obj3dType.o3d_planeXOY);
-                    
-                    //Войти в режим редактирования эскиза
-                    var doc2D = (ksDocument2D)sketchDefinition.BeginEdit();
-
-                    //Чертим прямоугольник по центру
-                    //GetParamStruct - получить указатель на структуру
-                    //StructType2DEnum - прямоугольник по центру
-                    var rectangleParam = (ksRectangleParam)_connector
-                        .Kompas
-                        .GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
-
-                    //Координаты базовой точки прямоугольника (одной из вершин)
-                    rectangleParam.x = 0;
-                    rectangleParam.y = 0;
-
-                    //Угол вектор направление от первой точки ко второй
-                    rectangleParam.ang = 0;
-
-                    //Высота и ширина прямоугольника
-                    rectangleParam.height = _parameters.LeftWallHeight;
-                    rectangleParam.width = _parameters.Width;
-
-                    //Стиль линии - основная
-                    rectangleParam.style = 1;
-
-                    //Создать прямоугольник по этим параметрам
-                    doc2D.ksRectangle(rectangleParam);
-
-                    //Выйти из режима редактирования эскиза
-                    sketchDefinition.EndEdit();
-
-                    //Выдавливание детали
-                    PressOutSketch(sketchDefinition, _parameters.Thickness);
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
-        }
-
-       
     }
 }

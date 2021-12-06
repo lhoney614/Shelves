@@ -2,92 +2,46 @@
 using Kompas6API5;
 using Kompas6Constants3D;
 using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace APIConnector
 {
     public class KompasConnector
     {
         /// <summary>
-        /// Интерфейс создания 3D-документа
-        /// </summary>
-        private ksDocument3D _doc3D;
-
-        /// <summary>
-        /// Интерфейс API Компас-3D
-        /// </summary>
-        private KompasObject _kompas;
-
-        /// <summary>
-        /// Интерфейс компонента Компас-3D
-        /// </summary>
-        private ksPart _ksPart;
-
-        /// <summary>
         /// Переменная, хранящая название программы
         /// </summary>
-        private string _progId = "KOMPAS.Application.5";
+        private const string ProgId = "KOMPAS.Application.5";
 
-        public ksDocument3D Doc3D
-        {
-            get;
-            set;
-        }
+        public KompasObject Kompas { get; set; }
 
-        public KompasObject Kompas
-        {
-            get;
-            set;
-        }
-
-        public ksPart KsPart
-        {
-            get;
-            set;
-        }
+        public ksPart KsPart { get; set; }
 
         /// <summary>
         /// Конструктор класса KompasConnector
         /// </summary>
-        public KompasConnector()
+        public void OpenKompas()
         {
             try
             {
                 //если программа открыта
-                _kompas = (KompasObject) Marshal.GetActiveObject(_progId);
+                Kompas = (KompasObject) Marshal.GetActiveObject(ProgId);
             }
             catch (COMException)
             {
+                var t = Type.GetTypeFromProgID(ProgId);
                 //если программа еще не открыта
-                _kompas = (KompasObject) Activator.CreateInstance(Type.GetTypeFromProgID(_progId));
-
-                //Придумать решение, не требующее задержки
-                //Костыль, который решает проблему, где апи
-                //не успевает полностью подключить,
-                //тем самым выбивая NullReferenceException при
-                //попытке его использовать
-                Thread.Sleep(500);
+                Kompas = (KompasObject) Activator.CreateInstance(t);
+                
             }
 
-            _kompas.Visible = true;
-            _kompas.ActivateControllerAPI();
-        }
+            if (Kompas == null) return;
 
-        /// <summary>
-        /// Метод для создания нового компонента в Компас-3D
-        /// </summary>
-        public void GetNewPart()
-        {
-            //получаем указатель на интерфейс документа трехмерной модели
-            _doc3D = (ksDocument3D) _kompas.Document3D();
-            //создаем документ-модель
-            _doc3D.Create();
-            //получаем интерфейс модели
-            _doc3D = (ksDocument3D) _kompas.ActiveDocument3D();
-            //получаем интерфейс компонента в соответствии с заданным типом
-            //pTop_Part - это главный компонент, в составе которого
-            //находится новый или редактируемый, или указанный компонент
-            _ksPart = (ksPart) _doc3D.GetPart((short) Part_Type.pTop_Part);
+            Kompas.Visible = true;
+            Kompas.ActivateControllerAPI();
+
+            var doc3D = (ksDocument3D) Kompas.Document3D();
+            doc3D.Create();
+            KsPart = (ksPart)doc3D.GetPart((short)Part_Type.pTop_Part);
         }
     }
 }

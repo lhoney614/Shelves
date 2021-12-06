@@ -7,8 +7,8 @@
     <ProjectGuid>{521D0576-AF50-4404-9A37-BAC9AEDCA81A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KOMPASConnector</RootNamespace>
-    <AssemblyName>KOMPASConnector</AssemblyName>
+    <RootNamespace>APIConnector</RootNamespace>
+    <AssemblyName>APIConnector</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

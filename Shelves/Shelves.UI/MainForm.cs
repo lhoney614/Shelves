@@ -256,7 +256,9 @@ namespace Shelves.UI
                 _shelvesParameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
                 buttonBuild.Enabled = true;
                 _kompasConnector = new KompasConnector();
-                var builder = new Builder(_kompasConnector, _shelvesParameters);
+                _kompasConnector.OpenKompas();
+                var builder = new Builder();
+                builder.BuildShelves(_kompasConnector, _shelvesParameters);
             }
             catch
             {
