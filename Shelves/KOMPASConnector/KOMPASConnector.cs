@@ -5,15 +5,24 @@ using System.Runtime.InteropServices;
 
 namespace APIConnector
 {
+    /// <summary>
+    /// Класс для подключения к Компас-3D
+    /// </summary>
     public class KompasConnector
     {
         /// <summary>
-        /// Переменная, хранящая название программы
+        /// Хранит название программы
         /// </summary>
         private const string ProgId = "KOMPAS.Application.5";
 
+        /// <summary>
+        /// Интерфейс API Компас-3D
+        /// </summary>
         public KompasObject Kompas { get; set; }
 
+        /// <summary>
+        /// Интерфейс компонента Компас-3D
+        /// </summary>
         public ksPart KsPart { get; set; }
 
         /// <summary>
@@ -28,17 +37,22 @@ namespace APIConnector
             }
             catch (COMException)
             {
-                var t = Type.GetTypeFromProgID(ProgId);
-                //если программа еще не открыта
-                Kompas = (KompasObject) Activator.CreateInstance(t);
-                
+                try
+                {
+                    var t = Type.GetTypeFromProgID(ProgId);
+                    //если программа еще не открыта, то 
+                    //пытаемся ее открыть
+                    Kompas = (KompasObject)Activator.CreateInstance(t);
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentException(@"Ошибка в запуске программы");
+                }
             }
-
-            if (Kompas == null) return;
-
+            
             Kompas.Visible = true;
             Kompas.ActivateControllerAPI();
-
+            
             var doc3D = (ksDocument3D) Kompas.Document3D();
             doc3D.Create();
             KsPart = (ksPart)doc3D.GetPart((short)Part_Type.pTop_Part);

@@ -32,15 +32,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Kompas6API5">
-      <HintPath>..\..\..\..\..\Desktop\CSharp\Common\Kompas6API5.dll</HintPath>
+      <HintPath>..\KompasAPI\Kompas6API5.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Kompas6Constants">
-      <HintPath>..\..\..\..\..\Desktop\CSharp\Common\Kompas6Constants.dll</HintPath>
+      <HintPath>..\KompasAPI\Kompas6Constants.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Kompas6Constants3D">
-      <HintPath>..\..\..\..\..\Desktop\CSharp\Common\Kompas6Constants3D.dll</HintPath>
+      <HintPath>..\KompasAPI\Kompas6Constants3D.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

@@ -40,9 +40,9 @@ namespace ShelvesParameters
         /// <summary>
         /// Валидация значений параметров
         /// </summary>
-        /// <param name="value">значение, которое должно быть присвоено</param>
-        /// <param name="min">минимальное значение параметра</param>
-        /// <param name="max">максимальное значение параметра</param>
+        /// <param name="value">Значение, которое должно быть присвоено</param>
+        /// <param name="min">Минимальное значение параметра</param>
+        /// <param name="max">Максимальное значение параметра</param>
         private static int ValidationValue(int value, int min, int max)
         {
             if (value < min || value > max)

@@ -13,11 +13,13 @@ namespace Shelves.UI
     public partial class MainForm : Form
     {
         /// <summary>
-        /// Создание переменной типа Parameters
         /// Хранит вводимые в форме параметры
         /// </summary>
         private Parameters _shelvesParameters;
 
+        /// <summary>
+        /// Переменная класса для подключения к Компас-3D
+        /// </summary>
         private KompasConnector _kompasConnector;
 
         /// <summary>
@@ -52,6 +54,7 @@ namespace Shelves.UI
         {
             InitializeComponent();
             _shelvesParameters = new Parameters();
+            _kompasConnector = new KompasConnector();
         }
 
         /// <summary>
@@ -253,10 +256,18 @@ namespace Shelves.UI
         {
             try
             {
-                _shelvesParameters = new Parameters(_thickness, _length, _width, _leftWallHeight, _rightWallHeight);
+                _shelvesParameters = new Parameters(_thickness, _length, 
+                    _width, _leftWallHeight, _rightWallHeight);
                 buttonBuild.Enabled = true;
-                _kompasConnector = new KompasConnector();
-                _kompasConnector.OpenKompas();
+                try
+                {
+                    _kompasConnector.OpenKompas();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.ToString());
+                }
+
                 var builder = new Builder();
                 builder.BuildShelves(_kompasConnector, _shelvesParameters);
             }

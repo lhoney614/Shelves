@@ -6,10 +6,13 @@ using Kompas6Constants3D;
 
 namespace ShelvesBuilder
 {
+    /// <summary>
+    /// Класс для построения полок
+    /// </summary>
     public class Builder
     {
         /// <summary>
-        /// Коннектор для работы с Компас-3D
+        /// Переменная для работы с Компас-3D
         /// </summary>
         private KompasConnector _connector;
         
@@ -23,9 +26,10 @@ namespace ShelvesBuilder
             var parameters = param;
             _connector = connector;
             
-            //Левая крайняя дощечка
+            //Левая стенка
             CreateShelf(0, 0, parameters.Thickness,
-                parameters.LeftWallHeight + parameters.Thickness, parameters.Width);
+                parameters.LeftWallHeight + parameters.Thickness,
+                parameters.Width);
 
             //Нижняя дощечка верхней полки
             CreateShelf(parameters.Thickness, 0, parameters.Length,
@@ -36,26 +40,29 @@ namespace ShelvesBuilder
                 parameters.Length, parameters.RightWallHeight, 
                 parameters.Thickness);
             
-            //Общая дощечка
+            //Общая стенка
             CreateShelf(parameters.Length + parameters.Thickness, 
-                - parameters.CommonWallHeight + parameters.RightWallHeight, parameters.Thickness,
+                - parameters.CommonWallHeight + parameters.RightWallHeight, 
+                parameters.Thickness,
                 parameters.CommonWallHeight + parameters.Thickness,
                 parameters.Width);
 
             //Задняя дощечка нижней полки
             CreateShelf(parameters.Length + parameters.Thickness * 2, 
                 -parameters.CommonWallHeight + parameters.RightWallHeight,
-                parameters.Length, parameters.Thickness, parameters.Width);
+                parameters.Length, parameters.Thickness, 
+                parameters.Width);
 
             //Нижняя дощечка нижней полки
             CreateShelf(parameters.Length + parameters.Thickness * 2,
                 - parameters.LeftWallHeight, parameters.Length,
                 parameters.RightWallHeight, parameters.Thickness);
 
-            //Правая крайняя дощечка
+            //Правая стенка
             CreateShelf(parameters.Length * 2 + parameters.Thickness * 2,
                 - param.LeftWallHeight - parameters.Thickness,
-                param.Thickness, parameters.RightWallHeight + parameters.Thickness,
+                param.Thickness, 
+                parameters.RightWallHeight + parameters.Thickness,
                 parameters.Width);
         }
 
@@ -97,14 +104,17 @@ namespace ShelvesBuilder
             double thickness)
         {
             //Создать новый интерфейс объекта и получить указатель на него
-            var extrusionEntity = (ksEntity)_connector.KsPart.NewEntity((short)Obj3dType.o3d_bossExtrusion);
+            var extrusionEntity = (ksEntity)_connector
+                .KsPart
+                .NewEntity((short)Obj3dType.o3d_bossExtrusion);
             
             //Интерфейс приклеенного элемента выдавливания
-            var extrusionDefinition = (ksBossExtrusionDefinition)extrusionEntity.GetDefinition();
+            var extrusionDefinition = (ksBossExtrusionDefinition)extrusionEntity
+                .GetDefinition();
 
             //Установить параметры выдавливания в одном направлении
             //side - направление (true - прямое направление)
-            //тип выдавливания (0 -строго на глубину)
+            //тип выдавливания (0 - строго на глубину)
             //глубина выдавливания
             extrusionDefinition.SetSideParam(true, 0, thickness);
 
