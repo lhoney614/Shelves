@@ -115,6 +115,7 @@ namespace Shelves.UI
             _length = CheckValueType(textBoxB);
             if (_length == 0) return;
 
+            //TODO: duplicates?
             try
             {
                 _shelvesParameters.Length = _length;
@@ -140,6 +141,7 @@ namespace Shelves.UI
             _width = CheckValueType(textBoxC);
             if (_width == 0) return;
 
+            //TODO: duplicates?
             try
             {
                 _shelvesParameters.Width = _width;
@@ -164,7 +166,7 @@ namespace Shelves.UI
         {
             _leftWallHeight = CheckValueType(textBoxD);
             if (_leftWallHeight == 0) return;
-
+            //TODO: duplicates?
             try
             {
                 _shelvesParameters.LeftWallHeight = _leftWallHeight;
@@ -189,7 +191,7 @@ namespace Shelves.UI
         {
             _rightWallHeight = CheckValueType(textBoxE);
             if (_rightWallHeight == 0) return;
-
+            //TODO: duplicates?
             try
             {
                 _shelvesParameters.RightWallHeight = _rightWallHeight;
@@ -212,6 +214,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void minParamButton_Click(object sender, EventArgs e)
         {
+            //TODO: на уровень модели данных
             textBoxA.Text = @"15";
             textBoxB.Text = @"500";
             textBoxC.Text = @"200";
@@ -226,6 +229,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void maxParamButton_Click(object sender, EventArgs e)
         {
+            //TODO: на уровень модели данных
             textBoxA.Text = @"20";
             textBoxB.Text = @"700";
             textBoxC.Text = @"300";
@@ -240,6 +244,7 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void defaultPramButton_Click(object sender, EventArgs e)
         {
+            //TODO: на уровень модели данных
             textBoxA.Text = @"17";
             textBoxB.Text = @"600";
             textBoxC.Text = @"250";

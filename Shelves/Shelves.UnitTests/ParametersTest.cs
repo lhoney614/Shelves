@@ -10,12 +10,9 @@ namespace Shelves.UnitTests
     [TestFixture]
     public class ParametersTest
     {
-        private Parameters _sourceParameters;
-        
-        [SetUp]
-        public void SetSourceParameters()
-        {
-            _sourceParameters = new Parameters
+        //TODO: RSDN
+        private Parameters _sourceParameters =>
+            new Parameters
             {
                 Thickness = 17,
                 Length = 600,
@@ -23,7 +20,6 @@ namespace Shelves.UnitTests
                 LeftWallHeight = 175,
                 RightWallHeight = 125
             };
-        }
 
         [TestCase(TestName = "Позитивный тест геттера Thickness")]
         public void Thickness_GetCorrectValue()

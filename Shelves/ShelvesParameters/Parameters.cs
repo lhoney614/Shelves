@@ -115,6 +115,7 @@ namespace ShelvesParameters
             private set => _commonWallHeight = value + Thickness + LeftWallHeight + RightWallHeight;
         }
 
+        //TODO: default params
         /// <summary>
         /// Пустой конструктор класса Parameters
         /// </summary>
