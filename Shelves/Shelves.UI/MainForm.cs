@@ -48,6 +48,22 @@ namespace Shelves.UI
         private int _rightWallHeight;
 
         /// <summary>
+        /// Наличие задней стенки
+        /// </summary>
+        private bool _backShelf;
+
+        /// <summary>
+        /// Наличие отверстий
+        /// </summary>
+        private bool _holes;
+
+
+        /// <summary>
+        /// Налиличе скругленных внешних углов
+        /// </summary>
+        private bool _rounding;
+
+        /// <summary>
         /// Загрузка главной формы
         /// </summary>
         public MainForm()
@@ -57,12 +73,13 @@ namespace Shelves.UI
             _kompasConnector = new KompasConnector();
         }
 
+
         /// <summary>
         /// Проверка на соответствие вводимых данных типу int
         /// </summary>
-        /// <param name="textBox">ссылка на соответствующий TextBox</param>
+        /// <param name="textBox">Соответствующий TextBox</param>
         /// <returns></returns>
-        private int CheckValueType(TextBox textBox)
+        private int CheckValueType(Control textBox)
         {
             try
             {
@@ -79,7 +96,47 @@ namespace Shelves.UI
                 return 0;
             }
         }
-        
+
+        /// <summary>
+        /// Проверка корректного присвоения значения параметра
+        /// </summary>
+        /// <param name="textBox">Соотвествующий TextBox</param>
+        /// <param name="param">Парамет</param>
+        /// <param name="value"></param>
+        private void TryToSetParameterValue(Control textBox, int param, int value)
+        {
+            //TODO: ну короче разобраться с передачей свойства
+            try
+            {
+                param = value;
+                textBox.BackColor = Color.White;
+                toolTip.SetToolTip(textBox, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBox.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBox, exception.Message);
+                buttonBuild.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Присвоение в поля ввода значений по умолчанию
+        /// </summary>
+        /// <param name="parameters"></param>
+        private void ParameterSettings(Parameters parameters)
+        {
+            textBoxA.Text = parameters.Thickness.ToString();
+            textBoxB.Text = parameters.Length.ToString();
+            textBoxC.Text = parameters.Width.ToString();
+            textBoxD.Text = parameters.LeftWallHeight.ToString();
+            textBoxE.Text = parameters.RightWallHeight.ToString();
+            checkBoxBackShelf.Checked = parameters.BackShelf;
+            checkBoxHoles.Checked = parameters.Holes;
+            checkBoxRounding.Checked = parameters.Rounding;
+        }
+
         /// <summary>
         /// Толщина досок, из которых будут сделаны полки
         /// </summary>
@@ -90,19 +147,8 @@ namespace Shelves.UI
             _thickness = CheckValueType(textBoxA);
             if (_thickness == 0) return;
 
-            try
-            {
-                _shelvesParameters.Thickness = _thickness;
-                textBoxA.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxA, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxA.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxA, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            TryToSetParameterValue(textBoxA, 
+                _shelvesParameters.Thickness, _thickness);
         }
 
         /// <summary>
@@ -115,20 +161,8 @@ namespace Shelves.UI
             _length = CheckValueType(textBoxB);
             if (_length == 0) return;
 
-            //TODO: duplicates?
-            try
-            {
-                _shelvesParameters.Length = _length;
-                textBoxB.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxB, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxB.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxB, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            TryToSetParameterValue(textBoxB,
+                _shelvesParameters.Length, _length);
         }
 
         /// <summary>
@@ -141,20 +175,8 @@ namespace Shelves.UI
             _width = CheckValueType(textBoxC);
             if (_width == 0) return;
 
-            //TODO: duplicates?
-            try
-            {
-                _shelvesParameters.Width = _width;
-                textBoxC.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxC, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxC.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxC, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            TryToSetParameterValue(textBoxC,
+                _shelvesParameters.Width, _width);
         }
 
         /// <summary>
@@ -166,20 +188,10 @@ namespace Shelves.UI
         {
             _leftWallHeight = CheckValueType(textBoxD);
             if (_leftWallHeight == 0) return;
-            //TODO: duplicates?
-            try
-            {
-                _shelvesParameters.LeftWallHeight = _leftWallHeight;
-                textBoxD.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxD, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxD.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxD, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+
+            TryToSetParameterValue(textBoxD,
+                _shelvesParameters.LeftWallHeight, 
+                _leftWallHeight);
         }
 
         /// <summary>
@@ -191,20 +203,10 @@ namespace Shelves.UI
         {
             _rightWallHeight = CheckValueType(textBoxE);
             if (_rightWallHeight == 0) return;
-            //TODO: duplicates?
-            try
-            {
-                _shelvesParameters.RightWallHeight = _rightWallHeight;
-                textBoxE.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxE, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxE.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxE, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+
+            TryToSetParameterValue(textBoxE,
+                _shelvesParameters.RightWallHeight, 
+                _rightWallHeight);
         }
 
         /// <summary>
@@ -214,12 +216,8 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void minParamButton_Click(object sender, EventArgs e)
         {
-            //TODO: на уровень модели данных
-            textBoxA.Text = @"15";
-            textBoxB.Text = @"500";
-            textBoxC.Text = @"200";
-            textBoxD.Text = @"150";
-            textBoxE.Text = @"100";
+            _shelvesParameters = new Parameters(1);
+            ParameterSettings(_shelvesParameters);
         }
 
         /// <summary>
@@ -229,12 +227,8 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void maxParamButton_Click(object sender, EventArgs e)
         {
-            //TODO: на уровень модели данных
-            textBoxA.Text = @"20";
-            textBoxB.Text = @"700";
-            textBoxC.Text = @"300";
-            textBoxD.Text = @"200";
-            textBoxE.Text = @"150";
+            _shelvesParameters = new Parameters(2);
+            ParameterSettings(_shelvesParameters);
         }
 
         /// <summary>
@@ -244,12 +238,38 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void defaultPramButton_Click(object sender, EventArgs e)
         {
-            //TODO: на уровень модели данных
-            textBoxA.Text = @"17";
-            textBoxB.Text = @"600";
-            textBoxC.Text = @"250";
-            textBoxD.Text = @"175";
-            textBoxE.Text = @"125";
+            _shelvesParameters = new Parameters(0);
+            ParameterSettings(_shelvesParameters);
+        }
+
+        /// <summary>
+        /// Наличие задней стенки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxBackShelf_CheckedChanged(object sender, EventArgs e)
+        {
+            _backShelf = checkBoxBackShelf.Checked;
+        }
+
+        /// <summary>
+        /// Наличие отверстий для подвеса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxHoles_CheckedChanged(object sender, EventArgs e)
+        {
+            _holes = checkBoxHoles.Checked;
+        }
+
+        /// <summary>
+        /// Наличие скругленных внешних углов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxRounding_CheckedChanged(object sender, EventArgs e)
+        {
+            _rounding = checkBoxRounding.Checked;
         }
 
         /// <summary>
@@ -262,26 +282,26 @@ namespace Shelves.UI
             try
             {
                 _shelvesParameters = new Parameters(_thickness, _length, 
-                    _width, _leftWallHeight, _rightWallHeight);
+                    _width, _leftWallHeight, _rightWallHeight, _backShelf, 
+                    _holes, _rounding);
                 buttonBuild.Enabled = true;
-                try
-                {
-                    _kompasConnector.OpenKompas();
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.ToString());
-                }
-
-                var builder = new Builder();
-                builder.BuildShelves(_kompasConnector, _shelvesParameters);
             }
             catch
             {
                 buttonBuild.Enabled = false;
             }
+
+            try
+            {
+                _kompasConnector.OpenKompas();
+                var builder = new Builder();
+                builder.BuildShelves(_kompasConnector, _shelvesParameters);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
         }
 
-        
     }
 }

@@ -36,11 +36,12 @@ namespace ShelvesParameters
         /// Высота общей стенки
         /// </summary>
         private int _commonWallHeight;
+        
 
         /// <summary>
         /// Валидация значений параметров
         /// </summary>
-        /// <param name="value">Значение, которое должно быть присвоено</param>
+        /// <param name="value">Присваиваемое значение</param>
         /// <param name="min">Минимальное значение параметра</param>
         /// <param name="max">Максимальное значение параметра</param>
         private static int ValidationValue(int value, int min, int max)
@@ -52,6 +53,24 @@ namespace ShelvesParameters
 
             return value;
         }
+
+        /// <summary>
+        /// Возвращает или задает значение
+        /// наличия задней стенки
+        /// </summary>
+        public bool BackShelf { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает значение
+        /// наличия отверстий для подвеса
+        /// </summary>
+        public bool Holes { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает значение
+        /// наличия скругления внешних углов
+        /// </summary>
+        public bool Rounding { get; set; }
 
         /// <summary>
         /// Возвращает или задает значение толщины досок
@@ -99,7 +118,9 @@ namespace ShelvesParameters
             {
                 if (LeftWallHeight - value != 50)
                 {
-                    throw new ArgumentException("Разность между левой и правой стенкой не равна 50");
+                    throw new ArgumentException
+                        ("Разность между левой и " +
+                         "правой стенкой не равна 50");
                 }
 
                 _rightWallHeight = ValidationValue(value, 100, 150);
@@ -112,12 +133,13 @@ namespace ShelvesParameters
         public int CommonWallHeight
         {
             get => _commonWallHeight;
-            private set => _commonWallHeight = value + Thickness + LeftWallHeight + RightWallHeight;
+            private set => _commonWallHeight = value + Thickness 
+                                                     + LeftWallHeight 
+                                                     + RightWallHeight;
         }
 
-        //TODO: default params
         /// <summary>
-        /// Пустой конструктор класса Parameters
+        /// Пустой конструктор
         /// </summary>
         public Parameters()
         {
@@ -125,14 +147,92 @@ namespace ShelvesParameters
         }
 
         /// <summary>
+        /// Конструктор класса Parameters с установленными
+        /// значениями по умолчанию
+        /// </summary>
+        /// <param name="switchConstr">
+        /// 0 - параметры по умолчанию;
+        /// 1 - минимальные параметры;
+        /// 2 - максимальные параметры
+        /// </param>
+        public Parameters(int switchConstr)
+        {
+            switch (switchConstr)
+            {
+                case 0:
+                    DefaulParameters();
+                    break;
+                case 1:
+                    MinParameters();
+                    break;
+                case 2:
+                    MaxParameters();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Присвоение значений по умолчанию
+        /// </summary>
+        private void DefaulParameters()
+        {
+            Thickness = 17;
+            Length = 600;
+            Width = 250;
+            LeftWallHeight = 175;
+            RightWallHeight = 125;
+            CommonWallHeight = 0;
+            BackShelf = true;
+            Holes = true;
+            Rounding = true;
+        }
+
+        /// <summary>
+        /// Присвоение минимальных значений
+        /// </summary>
+        private void MinParameters()
+        {
+            Thickness = 15;
+            Length = 500;
+            Width = 200;
+            LeftWallHeight = 150;
+            RightWallHeight = 100;
+            CommonWallHeight = 0;
+            BackShelf = true;
+            Holes = true;
+            Rounding = true;
+        }
+
+        /// <summary>
+        /// Присвоение максимальных значений
+        /// </summary>
+        private void MaxParameters()
+        {
+            Thickness = 20;
+            Length = 700;
+            Width = 300;
+            LeftWallHeight = 200;
+            RightWallHeight = 150;
+            CommonWallHeight = 0;
+            BackShelf = true;
+            Holes = true;
+            Rounding = true;
+        }
+
+        /// <summary>
         /// Конструктор класса Parameters
         /// </summary>
-        /// <param name="thickness">толщина досок</param>
-        /// <param name="length">длина полок</param>
-        /// <param name="width">ширина полок</param>
-        /// <param name="leftWallHeight">высота левой стенки</param>
-        /// <param name="rightWallHeight">высота правой стенки</param>
-        public Parameters(int thickness, int length, int width, int leftWallHeight, int rightWallHeight)
+        /// <param name="thickness">Толщина досок</param>
+        /// <param name="length">Длина полок</param>
+        /// <param name="width">Ширина полок</param>
+        /// <param name="leftWallHeight">Высота левой стенки</param>
+        /// <param name="rightWallHeight">Высота правой стенки</param>
+        /// <param name="backShelf">Наличие задней стенки</param>
+        /// <param name="holes">Наличие отверстий для подвеса</param>
+        /// <param name="rounding">Скругление внешних углов</param>
+        public Parameters(int thickness, int length, int width, 
+            int leftWallHeight, int rightWallHeight, bool backShelf,
+            bool holes, bool rounding)
         {
             Thickness = thickness;
             Length = length;
@@ -140,6 +240,9 @@ namespace ShelvesParameters
             LeftWallHeight = leftWallHeight;
             RightWallHeight = rightWallHeight;
             CommonWallHeight = 0;
+            BackShelf = backShelf;
+            Holes = holes;
+            Rounding = rounding;
         }
     }
 }

@@ -34,12 +34,15 @@ namespace ShelvesBuilder
             //Нижняя дощечка верхней полки
             CreateShelf(parameters.Thickness, 0, parameters.Length,
                 parameters.Thickness, parameters.Width);
-            
-            //Задняя дощечка верхней полки
-            CreateShelf(parameters.Thickness, parameters.Thickness, 
-                parameters.Length, parameters.RightWallHeight, 
-                parameters.Thickness);
-            
+
+            if (parameters.BackShelf)
+            {
+                //Задняя дощечка верхней полки
+                CreateShelf(parameters.Thickness, parameters.Thickness,
+                    parameters.Length, parameters.RightWallHeight,
+                    parameters.Thickness);
+            }
+
             //Общая стенка
             CreateShelf(parameters.Length + parameters.Thickness, 
                 - parameters.CommonWallHeight + parameters.RightWallHeight, 
@@ -47,11 +50,14 @@ namespace ShelvesBuilder
                 parameters.CommonWallHeight + parameters.Thickness,
                 parameters.Width);
 
-            //Задняя дощечка нижней полки
-            CreateShelf(parameters.Length + parameters.Thickness * 2, 
-                -parameters.CommonWallHeight + parameters.RightWallHeight,
-                parameters.Length, parameters.Thickness, 
-                parameters.Width);
+            if (parameters.BackShelf)
+            {
+                //Задняя дощечка нижней полки
+                CreateShelf(parameters.Length + parameters.Thickness * 2,
+                    -parameters.CommonWallHeight + parameters.RightWallHeight,
+                    parameters.Length, parameters.Thickness,
+                    parameters.Width);
+            }
 
             //Нижняя дощечка нижней полки
             CreateShelf(parameters.Length + parameters.Thickness * 2,
@@ -73,18 +79,16 @@ namespace ShelvesBuilder
         /// <returns>ksSketchDefinition</returns>
         public ksSketchDefinition CreateSketch(Obj3dType planeType)
         {
-            //Элемент модели по умолчанию
             var plane = (ksEntity)_connector
                 .KsPart
                 .GetDefaultEntity((short)planeType);
-
-            //Создать новый интерфейс объекта и получить указатель на него
+            
             var sketch = (ksEntity)_connector
                 .KsPart
                 .NewEntity((short)Obj3dType.o3d_sketch);
             
-            //Получить указатель на интерфейс параметров объектов или элементов
-            var sketchDefinition = (ksSketchDefinition)sketch.GetDefinition();
+            var sketchDefinition = (ksSketchDefinition)sketch
+                .GetDefinition();
 
             //Изменить базовую плоскость эскиза
             sketchDefinition.SetPlane(plane);
@@ -103,25 +107,21 @@ namespace ShelvesBuilder
             ksSketchDefinition sketchDefinition,
             double thickness)
         {
-            //Создать новый интерфейс объекта и получить указатель на него
             var extrusionEntity = (ksEntity)_connector
                 .KsPart
                 .NewEntity((short)Obj3dType.o3d_bossExtrusion);
             
-            //Интерфейс приклеенного элемента выдавливания
-            var extrusionDefinition = (ksBossExtrusionDefinition)extrusionEntity
+            var extrusionDefinition = 
+                (ksBossExtrusionDefinition)extrusionEntity
                 .GetDefinition();
-
-            //Установить параметры выдавливания в одном направлении
+            
             //side - направление (true - прямое направление)
             //тип выдавливания (0 - строго на глубину)
             //глубина выдавливания
             extrusionDefinition.SetSideParam(true, 0, thickness);
-
-            //Изменить указатель на интерфейс эскиза элемента
+            
             extrusionDefinition.SetSketch(sketchDefinition);
             
-            //Создать объект в модели
             extrusionEntity.Create();
         }
 
@@ -133,12 +133,11 @@ namespace ShelvesBuilder
         /// <param name="width">Верхний правый угол</param>
         /// <param name="height">Верхний правый угол</param>
         /// <param name="thickness">Толщина выдавливания</param>
-        public void CreateShelf(int x, int y, int width, int height, int thickness)
+        public void CreateShelf(int x, int y, int width, 
+            int height, int thickness)
         {
-            //Выбор плоскости для построения
             var sketchDefinition = CreateSketch(Obj3dType.o3d_planeXOY);
-
-            //Войти в режим редактирования эскиза
+            
             var doc2D = (ksDocument2D)sketchDefinition.BeginEdit();
 
             //Построение прямоугольника
@@ -154,8 +153,7 @@ namespace ShelvesBuilder
             rectangleParam.style = 1;
 
             doc2D.ksRectangle(rectangleParam);
-
-            //Выйти из режима редактирования эскиза
+            
             sketchDefinition.EndEdit();
 
             //Выдавливание детали

@@ -40,20 +40,19 @@ namespace APIConnector
                 try
                 {
                     var t = Type.GetTypeFromProgID(ProgId);
-                    //если программа еще не открыта, то 
-                    //пытаемся ее открыть
-                    Kompas = (KompasObject)Activator.CreateInstance(t);
+                    Kompas = (KompasObject) Activator.CreateInstance(t);
                 }
                 catch (Exception)
                 {
-                    throw new ArgumentException(@"Ошибка в запуске программы");
+                    throw new ArgumentException
+                        (@"Ошибка в запуске программы");
                 }
             }
-            
+
             Kompas.Visible = true;
             Kompas.ActivateControllerAPI();
-            
-            var doc3D = (ksDocument3D) Kompas.Document3D();
+
+            var doc3D = (ksDocument3D)Kompas.Document3D();
             doc3D.Create();
             KsPart = (ksPart)doc3D.GetPart((short)Part_Type.pTop_Part);
         }
