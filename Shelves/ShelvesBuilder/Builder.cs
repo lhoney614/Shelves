@@ -70,6 +70,8 @@ namespace ShelvesBuilder
                 param.Thickness, 
                 parameters.RightWallHeight + parameters.Thickness,
                 parameters.Width);
+
+            //TODO: сделать все три доп.функциональности
         }
 
         /// <summary>
@@ -126,6 +128,32 @@ namespace ShelvesBuilder
         }
 
         /// <summary>
+        /// Вырезание по эскизу
+        /// </summary>
+        /// <param name="sketchDefinition">Эскиз</param>
+        /// <param name="thickness">Глубина выреза</param>
+        private void CutOutSketch(ksSketchDefinition sketchDefinition,
+            double thickness)
+        {
+            var extrusionEntity = (ksEntity)_connector
+                .KsPart
+                .NewEntity((short)Obj3dType.o3d_cutExtrusion);
+
+            var extrusionDefinition =
+                (ksCutExtrusionDefinition)extrusionEntity
+                    .GetDefinition();
+
+            //side - направление (true - прямое направление)
+            //тип выдавливания (0 - строго на глубину)
+            //глубина выдавливания
+            extrusionDefinition.SetSideParam(true, 0, thickness);
+
+            extrusionDefinition.SetSketch(sketchDefinition);
+
+            extrusionEntity.Create();
+        }
+
+        /// <summary>
         /// Создание дощечки по заданным параметрам
         /// </summary>
         /// <param name="x">Нижний левый угол</param>
@@ -158,6 +186,49 @@ namespace ShelvesBuilder
 
             //Выдавливание детали
             PressOutSketch(sketchDefinition, thickness);
+        }
+
+        //TODO: узнать о количестве отверстий
+        /// <summary>
+        /// Создание отверстий по заданным параметрам
+        /// </summary>
+        /// <param name="x">Х-координата центра окружности</param>
+        /// <param name="y">У-координата центра окружности</param>
+        /// <param name="thickness">Глубина вырезания</param>
+        public void CreateHoles(int x, int y, int thickness)
+        {
+            var sketchDefinition = CreateSketch(Obj3dType.o3d_planeXOY);
+
+            var doc2D = (ksDocument2D)sketchDefinition.BeginEdit();
+
+            doc2D.ksCircle(x, y, 4, 1);
+
+            sketchDefinition.EndEdit();
+
+            PressOutSketch(sketchDefinition, thickness);
+        }
+
+        //TODO: доделать скругление
+        /// <summary>
+        /// Скругление (фаска) внешних углов
+        /// </summary>
+        public void Chamfler(ksSketchDefinition sketchDefinition)
+        {
+            var extrusionEntity = (ksEntity)_connector
+                .KsPart
+                .NewEntity((short)Obj3dType.o3d_fillet);
+
+            var extrusionDefinition =
+                (ksFilletDefinition)extrusionEntity
+                    .GetDefinition();
+
+            //transref - направление (true - прямое направление)
+            //distance1 - первый катет фаски
+            //distance2 - второй катет фаски
+            extrusionDefinition.radius = 5;
+            extrusionDefinition.tangent = false;
+            
+            extrusionEntity.Create();
         }
     }
 }
