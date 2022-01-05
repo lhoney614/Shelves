@@ -46,22 +46,16 @@ namespace Shelves.UI
         /// Высота правой стенки
         /// </summary>
         private int _rightWallHeight;
-
-        /// <summary>
-        /// Наличие задней стенки
-        /// </summary>
-        private bool _backShelf;
-
-        /// <summary>
-        /// Наличие отверстий
-        /// </summary>
-        private bool _holes;
-
-
+        
         /// <summary>
         /// Налиличе скругленных внешних углов
         /// </summary>
         private bool _rounding;
+
+        /// <summary>
+        /// Радиус скругления внешних углов
+        /// </summary>
+        private int _radius;
 
         /// <summary>
         /// Загрузка главной формы
@@ -97,6 +91,7 @@ namespace Shelves.UI
             }
         }
 
+        /*
         /// <summary>
         /// Проверка корректного присвоения значения параметра
         /// </summary>
@@ -120,6 +115,7 @@ namespace Shelves.UI
                 buttonBuild.Enabled = false;
             }
         }
+        */
 
         /// <summary>
         /// Присвоение в поля ввода значений по умолчанию
@@ -132,9 +128,8 @@ namespace Shelves.UI
             textBoxC.Text = parameters.Width.ToString();
             textBoxD.Text = parameters.LeftWallHeight.ToString();
             textBoxE.Text = parameters.RightWallHeight.ToString();
-            checkBoxBackShelf.Checked = parameters.BackShelf;
-            checkBoxHoles.Checked = parameters.Holes;
             checkBoxRounding.Checked = parameters.Rounding;
+            textBoxCorner.Text = parameters.Radius.ToString();
         }
 
         /// <summary>
@@ -147,8 +142,19 @@ namespace Shelves.UI
             _thickness = CheckValueType(textBoxA);
             if (_thickness == 0) return;
 
-            TryToSetParameterValue(textBoxA, 
-                _shelvesParameters.Thickness, _thickness);
+            try
+            {
+                _shelvesParameters.Thickness = _thickness;
+                textBoxA.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxA, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBoxA.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBoxA, exception.Message);
+                buttonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -161,8 +167,19 @@ namespace Shelves.UI
             _length = CheckValueType(textBoxB);
             if (_length == 0) return;
 
-            TryToSetParameterValue(textBoxB,
-                _shelvesParameters.Length, _length);
+            try
+            {
+                _shelvesParameters.Length = _length;
+                textBoxB.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxB, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBoxB.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBoxB, exception.Message);
+                buttonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -175,8 +192,19 @@ namespace Shelves.UI
             _width = CheckValueType(textBoxC);
             if (_width == 0) return;
 
-            TryToSetParameterValue(textBoxC,
-                _shelvesParameters.Width, _width);
+            try
+            {
+                _shelvesParameters.Width = _width;
+                textBoxC.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxC, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBoxC.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBoxC, exception.Message);
+                buttonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -189,9 +217,19 @@ namespace Shelves.UI
             _leftWallHeight = CheckValueType(textBoxD);
             if (_leftWallHeight == 0) return;
 
-            TryToSetParameterValue(textBoxD,
-                _shelvesParameters.LeftWallHeight, 
-                _leftWallHeight);
+            try
+            {
+                _shelvesParameters.LeftWallHeight = _leftWallHeight;
+                textBoxD.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxD, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBoxD.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBoxD, exception.Message);
+                buttonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -204,9 +242,19 @@ namespace Shelves.UI
             _rightWallHeight = CheckValueType(textBoxE);
             if (_rightWallHeight == 0) return;
 
-            TryToSetParameterValue(textBoxE,
-                _shelvesParameters.RightWallHeight, 
-                _rightWallHeight);
+            try
+            {
+                _shelvesParameters.RightWallHeight = _rightWallHeight;
+                textBoxE.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxE, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBoxE.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBoxE, exception.Message);
+                buttonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -243,26 +291,6 @@ namespace Shelves.UI
         }
 
         /// <summary>
-        /// Наличие задней стенки
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBoxBackShelf_CheckedChanged(object sender, EventArgs e)
-        {
-            _backShelf = checkBoxBackShelf.Checked;
-        }
-
-        /// <summary>
-        /// Наличие отверстий для подвеса
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBoxHoles_CheckedChanged(object sender, EventArgs e)
-        {
-            _holes = checkBoxHoles.Checked;
-        }
-
-        /// <summary>
         /// Наличие скругленных внешних углов
         /// </summary>
         /// <param name="sender"></param>
@@ -270,6 +298,31 @@ namespace Shelves.UI
         private void checkBoxRounding_CheckedChanged(object sender, EventArgs e)
         {
             _rounding = checkBoxRounding.Checked;
+        }
+
+        /// <summary>
+        /// Радиус скругленных углов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxCorner_TextChanged(object sender, EventArgs e)
+        {
+            _radius = CheckValueType(textBoxCorner);
+            if (_radius == 0) return;
+
+            try
+            {
+                _shelvesParameters.Radius = _radius;
+                textBoxCorner.BackColor = Color.White;
+                toolTip.SetToolTip(textBoxCorner, "");
+                buttonBuild.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                textBoxCorner.BackColor = Color.DarkSalmon;
+                toolTip.SetToolTip(textBoxCorner, exception.Message);
+                buttonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -282,8 +335,8 @@ namespace Shelves.UI
             try
             {
                 _shelvesParameters = new Parameters(_thickness, _length, 
-                    _width, _leftWallHeight, _rightWallHeight, _backShelf, 
-                    _holes, _rounding);
+                    _width, _leftWallHeight, _rightWallHeight, _rounding,
+                    _radius);
                 buttonBuild.Enabled = true;
             }
             catch

@@ -31,18 +31,25 @@ namespace ShelvesBuilder
                 parameters.LeftWallHeight + parameters.Thickness,
                 parameters.Width);
 
+            if (parameters.Rounding)
+            {
+                var x = parameters.Thickness / 2;
+                var y = parameters.LeftWallHeight + parameters.Thickness;
+                var z = parameters.Width;
+
+                CreateFillet(parameters.Radius, x, y, z);
+            }
+
             //Нижняя дощечка верхней полки
             CreateShelf(parameters.Thickness, 0, parameters.Length,
                 parameters.Thickness, parameters.Width);
 
-            if (parameters.BackShelf)
-            {
-                //Задняя дощечка верхней полки
-                CreateShelf(parameters.Thickness, parameters.Thickness,
-                    parameters.Length, parameters.RightWallHeight,
-                    parameters.Thickness);
-            }
 
+            //Задняя дощечка верхней полки
+            CreateShelf(parameters.Thickness, parameters.Thickness,
+                parameters.Length, parameters.RightWallHeight,
+                parameters.Thickness);
+            
             //Общая стенка
             CreateShelf(parameters.Length + parameters.Thickness, 
                 - parameters.CommonWallHeight + parameters.RightWallHeight, 
@@ -50,14 +57,22 @@ namespace ShelvesBuilder
                 parameters.CommonWallHeight + parameters.Thickness,
                 parameters.Width);
 
-            if (parameters.BackShelf)
+            if (parameters.Rounding)
             {
-                //Задняя дощечка нижней полки
-                CreateShelf(parameters.Length + parameters.Thickness * 2,
-                    -parameters.CommonWallHeight + parameters.RightWallHeight,
-                    parameters.Length, parameters.Thickness,
-                    parameters.Width);
+                var x = parameters.Length 
+                        + parameters.Thickness 
+                        + parameters.Thickness / 2;
+                var y = parameters.RightWallHeight + parameters.Thickness;
+                var z = parameters.Width;
+
+                CreateFillet(parameters.Radius, x, y, z);
             }
+
+            //Задняя дощечка нижней полки
+            CreateShelf(parameters.Length + parameters.Thickness * 2,
+                -parameters.CommonWallHeight + parameters.RightWallHeight,
+                parameters.Length, parameters.Thickness,
+                parameters.Width);
 
             //Нижняя дощечка нижней полки
             CreateShelf(parameters.Length + parameters.Thickness * 2,
@@ -71,7 +86,19 @@ namespace ShelvesBuilder
                 parameters.RightWallHeight + parameters.Thickness,
                 parameters.Width);
 
-            //TODO: сделать все три доп.функциональности
+            if (parameters.Rounding)
+            {
+                var x = parameters.Length * 2 + 
+                        parameters.Thickness * 2 + 
+                        parameters.Thickness / 2;
+                var y = parameters.RightWallHeight 
+                        - parameters.LeftWallHeight;
+                var z = parameters.Width;
+
+                CreateFillet(parameters.Radius, x, y, z);
+            }
+
+
         }
 
         /// <summary>
@@ -128,32 +155,6 @@ namespace ShelvesBuilder
         }
 
         /// <summary>
-        /// Вырезание по эскизу
-        /// </summary>
-        /// <param name="sketchDefinition">Эскиз</param>
-        /// <param name="thickness">Глубина выреза</param>
-        private void CutOutSketch(ksSketchDefinition sketchDefinition,
-            double thickness)
-        {
-            var extrusionEntity = (ksEntity)_connector
-                .KsPart
-                .NewEntity((short)Obj3dType.o3d_cutExtrusion);
-
-            var extrusionDefinition =
-                (ksCutExtrusionDefinition)extrusionEntity
-                    .GetDefinition();
-
-            //side - направление (true - прямое направление)
-            //тип выдавливания (0 - строго на глубину)
-            //глубина выдавливания
-            extrusionDefinition.SetSideParam(true, 0, thickness);
-
-            extrusionDefinition.SetSketch(sketchDefinition);
-
-            extrusionEntity.Create();
-        }
-
-        /// <summary>
         /// Создание дощечки по заданным параметрам
         /// </summary>
         /// <param name="x">Нижний левый угол</param>
@@ -187,48 +188,37 @@ namespace ShelvesBuilder
             //Выдавливание детали
             PressOutSketch(sketchDefinition, thickness);
         }
-
-        //TODO: узнать о количестве отверстий
-        /// <summary>
-        /// Создание отверстий по заданным параметрам
-        /// </summary>
-        /// <param name="x">Х-координата центра окружности</param>
-        /// <param name="y">У-координата центра окружности</param>
-        /// <param name="thickness">Глубина вырезания</param>
-        public void CreateHoles(int x, int y, int thickness)
-        {
-            var sketchDefinition = CreateSketch(Obj3dType.o3d_planeXOY);
-
-            var doc2D = (ksDocument2D)sketchDefinition.BeginEdit();
-
-            doc2D.ksCircle(x, y, 4, 1);
-
-            sketchDefinition.EndEdit();
-
-            PressOutSketch(sketchDefinition, thickness);
-        }
-
-        //TODO: доделать скругление
+        
         /// <summary>
         /// Скругление (фаска) внешних углов
         /// </summary>
-        public void Chamfler(ksSketchDefinition sketchDefinition)
+        public void CreateFillet(int radius,
+            double x, double y, double z)
         {
-            var extrusionEntity = (ksEntity)_connector
+            var filletEntity = (ksEntity)_connector
                 .KsPart
                 .NewEntity((short)Obj3dType.o3d_fillet);
 
-            var extrusionDefinition =
-                (ksFilletDefinition)extrusionEntity
+            var filletDefinition =
+                (ksFilletDefinition)filletEntity
                     .GetDefinition();
 
-            //transref - направление (true - прямое направление)
-            //distance1 - первый катет фаски
-            //distance2 - второй катет фаски
-            extrusionDefinition.radius = 5;
-            extrusionDefinition.tangent = false;
+            //tangent - продолжать скругление по касательным
+            //ребрам
+            filletDefinition.radius = radius;
+            filletDefinition.tangent = true;
+
+            var iArray = filletDefinition.array();
+            var iCollection = _connector
+                .KsPart
+                .EntityCollection((short)Obj3dType.o3d_edge);
+
+            iCollection.SelectByPoint(x, y, z);
+            var iEdge = iCollection.Last();
             
-            extrusionEntity.Create();
+            iArray.Add(iEdge);
+
+            filletEntity.Create();
         }
     }
 }

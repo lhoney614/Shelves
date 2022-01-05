@@ -36,6 +36,11 @@ namespace ShelvesParameters
         /// Высота общей стенки
         /// </summary>
         private int _commonWallHeight;
+
+        /// <summary>
+        /// Радиус скругления углов
+        /// </summary>
+        private int _radius;
         
 
         /// <summary>
@@ -50,27 +55,9 @@ namespace ShelvesParameters
             {
                 throw new ArgumentException("Значение вне диапазона");
             }
-
+            
             return value;
         }
-
-        /// <summary>
-        /// Возвращает или задает значение
-        /// наличия задней стенки
-        /// </summary>
-        public bool BackShelf { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает значение
-        /// наличия отверстий для подвеса
-        /// </summary>
-        public bool Holes { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает значение
-        /// наличия скругления внешних углов
-        /// </summary>
-        public bool Rounding { get; set; }
 
         /// <summary>
         /// Возвращает или задает значение толщины досок
@@ -139,6 +126,22 @@ namespace ShelvesParameters
         }
 
         /// <summary>
+        /// Возвращает или задает значение
+        /// наличия скругления внешних углов
+        /// </summary>
+        public bool Rounding { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает значение
+        /// радиуса скругления внешних углов
+        /// </summary>
+        public int Radius
+        {
+            get => _radius;
+            set => _radius = ValidationValue(value, 30, 50);
+        }
+
+        /// <summary>
         /// Пустой конструктор
         /// </summary>
         public Parameters()
@@ -182,9 +185,8 @@ namespace ShelvesParameters
             LeftWallHeight = 175;
             RightWallHeight = 125;
             CommonWallHeight = 0;
-            BackShelf = true;
-            Holes = true;
             Rounding = true;
+            Radius = 40;
         }
 
         /// <summary>
@@ -198,9 +200,8 @@ namespace ShelvesParameters
             LeftWallHeight = 150;
             RightWallHeight = 100;
             CommonWallHeight = 0;
-            BackShelf = true;
-            Holes = true;
             Rounding = true;
+            Radius = 30;
         }
 
         /// <summary>
@@ -214,9 +215,8 @@ namespace ShelvesParameters
             LeftWallHeight = 200;
             RightWallHeight = 150;
             CommonWallHeight = 0;
-            BackShelf = true;
-            Holes = true;
             Rounding = true;
+            Radius = 50;
         }
 
         /// <summary>
@@ -227,12 +227,11 @@ namespace ShelvesParameters
         /// <param name="width">Ширина полок</param>
         /// <param name="leftWallHeight">Высота левой стенки</param>
         /// <param name="rightWallHeight">Высота правой стенки</param>
-        /// <param name="backShelf">Наличие задней стенки</param>
-        /// <param name="holes">Наличие отверстий для подвеса</param>
         /// <param name="rounding">Скругление внешних углов</param>
+        /// <param name="radius">Радиус скругления</param>
         public Parameters(int thickness, int length, int width, 
-            int leftWallHeight, int rightWallHeight, bool backShelf,
-            bool holes, bool rounding)
+            int leftWallHeight, int rightWallHeight, bool rounding,
+            int radius)
         {
             Thickness = thickness;
             Length = length;
@@ -240,9 +239,8 @@ namespace ShelvesParameters
             LeftWallHeight = leftWallHeight;
             RightWallHeight = rightWallHeight;
             CommonWallHeight = 0;
-            BackShelf = backShelf;
-            Holes = holes;
             Rounding = rounding;
+            Radius = radius;
         }
     }
 }

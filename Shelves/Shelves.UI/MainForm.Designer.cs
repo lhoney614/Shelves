@@ -56,10 +56,11 @@
             this.defaultPramButton = new System.Windows.Forms.Button();
             this.maxParamButton = new System.Windows.Forms.Button();
             this.minParamButton = new System.Windows.Forms.Button();
-            this.checkBoxBackShelf = new System.Windows.Forms.CheckBox();
-            this.checkBoxHoles = new System.Windows.Forms.CheckBox();
             this.checkBoxRounding = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBoxCorner = new System.Windows.Forms.TextBox();
+            this.labelCorner = new System.Windows.Forms.Label();
+            this.labelCornerParameters = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -258,14 +259,14 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(429, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(786, 579);
+            this.pictureBox1.Size = new System.Drawing.Size(830, 597);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Location = new System.Drawing.Point(168, 610);
+            this.buttonBuild.Location = new System.Drawing.Point(168, 580);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(100, 30);
             this.buttonBuild.TabIndex = 3;
@@ -278,9 +279,9 @@
             this.groupBox3.Controls.Add(this.defaultPramButton);
             this.groupBox3.Controls.Add(this.maxParamButton);
             this.groupBox3.Controls.Add(this.minParamButton);
-            this.groupBox3.Location = new System.Drawing.Point(13, 443);
+            this.groupBox3.Location = new System.Drawing.Point(12, 424);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(410, 149);
+            this.groupBox3.Size = new System.Drawing.Size(411, 150);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Быстрые настройки";
@@ -315,32 +316,10 @@
             this.minParamButton.UseVisualStyleBackColor = true;
             this.minParamButton.Click += new System.EventHandler(this.minParamButton_Click);
             // 
-            // checkBoxBackShelf
-            // 
-            this.checkBoxBackShelf.AutoSize = true;
-            this.checkBoxBackShelf.Location = new System.Drawing.Point(9, 37);
-            this.checkBoxBackShelf.Name = "checkBoxBackShelf";
-            this.checkBoxBackShelf.Size = new System.Drawing.Size(188, 21);
-            this.checkBoxBackShelf.TabIndex = 8;
-            this.checkBoxBackShelf.Text = "Наличие задней стенки";
-            this.checkBoxBackShelf.UseVisualStyleBackColor = true;
-            this.checkBoxBackShelf.CheckedChanged += new System.EventHandler(this.checkBoxBackShelf_CheckedChanged);
-            // 
-            // checkBoxHoles
-            // 
-            this.checkBoxHoles.AutoSize = true;
-            this.checkBoxHoles.Location = new System.Drawing.Point(9, 64);
-            this.checkBoxHoles.Name = "checkBoxHoles";
-            this.checkBoxHoles.Size = new System.Drawing.Size(187, 21);
-            this.checkBoxHoles.TabIndex = 9;
-            this.checkBoxHoles.Text = "Отверстия для подвеса";
-            this.checkBoxHoles.UseVisualStyleBackColor = true;
-            this.checkBoxHoles.CheckedChanged += new System.EventHandler(this.checkBoxHoles_CheckedChanged);
-            // 
             // checkBoxRounding
             // 
             this.checkBoxRounding.AutoSize = true;
-            this.checkBoxRounding.Location = new System.Drawing.Point(9, 91);
+            this.checkBoxRounding.Location = new System.Drawing.Point(9, 30);
             this.checkBoxRounding.Name = "checkBoxRounding";
             this.checkBoxRounding.Size = new System.Drawing.Size(205, 21);
             this.checkBoxRounding.TabIndex = 10;
@@ -350,21 +329,48 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.labelCornerParameters);
+            this.groupBox4.Controls.Add(this.labelCorner);
+            this.groupBox4.Controls.Add(this.textBoxCorner);
             this.groupBox4.Controls.Add(this.checkBoxRounding);
-            this.groupBox4.Controls.Add(this.checkBoxBackShelf);
-            this.groupBox4.Controls.Add(this.checkBoxHoles);
             this.groupBox4.Location = new System.Drawing.Point(12, 319);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(411, 118);
+            this.groupBox4.Size = new System.Drawing.Size(411, 99);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Параметры на выбор";
+            // 
+            // textBoxCorner
+            // 
+            this.textBoxCorner.Location = new System.Drawing.Point(196, 65);
+            this.textBoxCorner.Name = "textBoxCorner";
+            this.textBoxCorner.Size = new System.Drawing.Size(60, 22);
+            this.textBoxCorner.TabIndex = 11;
+            this.textBoxCorner.TextChanged += new System.EventHandler(this.textBoxCorner_TextChanged);
+            // 
+            // labelCorner
+            // 
+            this.labelCorner.AutoSize = true;
+            this.labelCorner.Location = new System.Drawing.Point(6, 68);
+            this.labelCorner.Name = "labelCorner";
+            this.labelCorner.Size = new System.Drawing.Size(180, 17);
+            this.labelCorner.TabIndex = 12;
+            this.labelCorner.Text = "Радиус скругления углов: ";
+            // 
+            // labelCornerParameters
+            // 
+            this.labelCornerParameters.AutoSize = true;
+            this.labelCornerParameters.Location = new System.Drawing.Point(262, 68);
+            this.labelCornerParameters.Name = "labelCornerParameters";
+            this.labelCornerParameters.Size = new System.Drawing.Size(105, 17);
+            this.labelCornerParameters.TabIndex = 13;
+            this.labelCornerParameters.Text = "от 30 до 50 мм";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 653);
+            this.ClientSize = new System.Drawing.Size(1272, 623);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.buttonBuild);
@@ -418,10 +424,11 @@
         private System.Windows.Forms.Button defaultPramButton;
         private System.Windows.Forms.Button maxParamButton;
         private System.Windows.Forms.Button minParamButton;
-        private System.Windows.Forms.CheckBox checkBoxBackShelf;
-        private System.Windows.Forms.CheckBox checkBoxHoles;
         private System.Windows.Forms.CheckBox checkBoxRounding;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label labelCornerParameters;
+        private System.Windows.Forms.Label labelCorner;
+        private System.Windows.Forms.TextBox textBoxCorner;
     }
 }
 
