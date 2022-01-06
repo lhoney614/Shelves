@@ -63,6 +63,9 @@ namespace Shelves.UI
         public MainForm()
         {
             InitializeComponent();
+            textBoxCorner.ReadOnly = true;
+            labelCorner.Visible = false;
+            labelCornerParameters.Visible = false;
             _shelvesParameters = new Parameters();
             _kompasConnector = new KompasConnector();
         }
@@ -298,6 +301,24 @@ namespace Shelves.UI
         private void checkBoxRounding_CheckedChanged(object sender, EventArgs e)
         {
             _rounding = checkBoxRounding.Checked;
+
+            if (_rounding)
+            {
+                textBoxCorner.ReadOnly = false;
+                labelTextCorner.Visible = false;
+                labelTextCornerNotes.Visible = false;
+                labelCorner.Visible = true;
+                labelCornerParameters.Visible = true;
+            }
+            else
+            {
+                textBoxCorner.ReadOnly = true;
+                labelCorner.Visible = false;
+                labelCornerParameters.Visible = false;
+                labelTextCorner.Visible = true;
+                labelTextCornerNotes.Visible = true;
+            }
+            
         }
 
         /// <summary>
