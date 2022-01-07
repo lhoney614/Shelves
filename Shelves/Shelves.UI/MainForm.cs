@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ShelvesParameters;
@@ -15,47 +16,30 @@ namespace Shelves.UI
         /// <summary>
         /// Хранит вводимые в форме параметры
         /// </summary>
-        private Parameters _shelvesParameters;
+        private Parameters _shelvesParameters = new Parameters();
 
         /// <summary>
         /// Переменная класса для подключения к Компас-3D
         /// </summary>
-        private KompasConnector _kompasConnector;
+        private readonly KompasConnector _kompasConnector = 
+            new KompasConnector();
 
         /// <summary>
-        /// Толщина досок
+        /// Словарь ключ-значение для привязки
+        /// TextBox соответствующему параметру
         /// </summary>
-        private int _thickness;
-
-        /// <summary>
-        /// Длина полок
-        /// </summary>
-        private int _length;
-
-        /// <summary>
-        /// Ширина полок
-        /// </summary>
-        private int _width;
-
-        /// <summary>
-        /// Высота левой стенки
-        /// </summary>
-        private int _leftWallHeight;
-
-        /// <summary>
-        /// Высота правой стенки
-        /// </summary>
-        private int _rightWallHeight;
+        private readonly Dictionary<TextBox, 
+            KeyValuePair<Parameter, bool>> _dictionaryTextBox;
         
         /// <summary>
-        /// Налиличе скругленных внешних углов
+        /// Цвет по умолчанию (белый)
         /// </summary>
-        private bool _rounding;
+        private readonly Color _defaultColor = Color.White;
 
         /// <summary>
-        /// Радиус скругления внешних углов
+        /// Цвет ошибки (темно-лососевый)
         /// </summary>
-        private int _radius;
+        private readonly Color _errorColor = Color.DarkSalmon;
 
         /// <summary>
         /// Загрузка главной формы
@@ -63,74 +47,174 @@ namespace Shelves.UI
         public MainForm()
         {
             InitializeComponent();
+            RoundingNotChecked();
+            buttonBuild.Enabled = false;
+
+            _dictionaryTextBox = 
+                new Dictionary<TextBox, KeyValuePair<Parameter, bool>>
+            {
+                {textBoxThickness, new KeyValuePair<Parameter, bool>
+                        (Parameter.Thickness, false)},
+
+                {textBoxLength, new KeyValuePair<Parameter, bool>
+                        (Parameter.Length, false)},
+
+                {textBoxWidth, new KeyValuePair<Parameter, bool>
+                        (Parameter.Width, false)},
+
+                {textBoxLeftWallHeight, new KeyValuePair<Parameter, bool>
+                        (Parameter.LeftWallHeight, false)},
+
+                {textBoxRightWallHeight, new KeyValuePair<Parameter, bool>
+                        (Parameter.RightWallHeight, false)},
+
+                {textBoxCorner, new KeyValuePair<Parameter, bool>
+                        (Parameter.Radius, true)}
+            };
+        }
+
+
+        /// <summary>
+        /// Изменение формы, если НЕ отмечено скругление углов
+        /// </summary>
+        public void RoundingNotChecked()
+        {
             textBoxCorner.ReadOnly = true;
             labelCorner.Visible = false;
             labelCornerParameters.Visible = false;
-            _shelvesParameters = new Parameters();
-            _kompasConnector = new KompasConnector();
+
+            labelTextCorner.Visible = true;
+            labelTextCornerNotes.Visible = true;
+
+            _dictionaryTextBox.Remove(textBoxCorner);
+            _dictionaryTextBox.Add(textBoxCorner,
+                new KeyValuePair<Parameter, bool>(Parameter.Radius, true));
         }
 
+        /// <summary>
+        /// Изменение формы, если отмечено скругление углов
+        /// </summary>
+        public void RoundingChecked()
+        {
+            textBoxCorner.ReadOnly = false;
+            labelTextCorner.Visible = false;
+            labelTextCornerNotes.Visible = false;
+
+            labelCorner.Visible = true;
+            labelCornerParameters.Visible = true;
+
+            _dictionaryTextBox.Remove(textBoxCorner);
+            _dictionaryTextBox.Add(textBoxCorner,
+                new KeyValuePair<Parameter, bool>(Parameter.Radius, false));
+        }
+
+        /// <summary>
+        /// Наличие скругленных внешних углов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxRounding_CheckedChanged(object sender,
+            EventArgs e)
+        {
+            if (checkBoxRounding.Checked)
+            {
+                RoundingChecked();
+            }
+            else
+            {
+                RoundingNotChecked();
+            }
+            BuildButtonEnabled();
+        }
 
         /// <summary>
         /// Проверка на соответствие вводимых данных типу int
         /// </summary>
         /// <param name="textBox">Соответствующий TextBox</param>
         /// <returns></returns>
-        private int CheckValueType(Control textBox)
+        private int CheckValueType(TextBox textBox)
         {
             try
             {
                 var value = Convert.ToInt32(textBox.Text);
                 toolTip.SetToolTip(textBox, "");
-                buttonBuild.Enabled = true;
                 return value;
             }
             catch (Exception)
             {
                 toolTip.SetToolTip(textBox, "Недопустимые символы");
-                textBox.BackColor = Color.DarkSalmon;
-                buttonBuild.Enabled = false;
+                textBox.BackColor = _errorColor;
                 return 0;
             }
         }
-
-        /*
+        
         /// <summary>
         /// Проверка корректного присвоения значения параметра
         /// </summary>
         /// <param name="textBox">Соотвествующий TextBox</param>
-        /// <param name="param">Парамет</param>
-        /// <param name="value"></param>
-        private void TryToSetParameterValue(Control textBox, int param, int value)
+        private void SetParameterValue(TextBox textBox)
         {
-            //TODO: ну короче разобраться с передачей свойства
+            //Значение из TextBox
+            var value = CheckValueType(textBox);
+
+            if (value == 0)
+            {
+                return;
+            }
+
+            //Присвоение значения соответствующему параметру
+            var parameter = _dictionaryTextBox[textBox].Key;
+
             try
             {
-                param = value;
-                textBox.BackColor = Color.White;
+                _shelvesParameters.SetValue(parameter, value);
+                textBox.BackColor = _defaultColor;
                 toolTip.SetToolTip(textBox, "");
-                buttonBuild.Enabled = true;
+                _dictionaryTextBox.Remove(textBox);
+                _dictionaryTextBox.Add(textBox, 
+                    new KeyValuePair<Parameter, bool>(parameter, true));
             }
             catch (Exception exception)
             {
-                textBox.BackColor = Color.DarkSalmon;
+                textBox.BackColor = _errorColor;
                 toolTip.SetToolTip(textBox, exception.Message);
-                buttonBuild.Enabled = false;
+                _dictionaryTextBox.Remove(textBox);
+                _dictionaryTextBox.Add(textBox,
+                    new KeyValuePair<Parameter, bool>(parameter, false));
             }
+            BuildButtonEnabled();
         }
-        */
 
+        /// <summary>
+        /// Блокирование кнопки "Построить"
+        /// </summary>
+        public void BuildButtonEnabled()
+        {
+            foreach (var textbox in _dictionaryTextBox)
+            {
+                var value = textbox.Value.Value;
+                if (value == false)
+                {
+                    buttonBuild.Enabled = false;
+                    return;
+                }
+            }
+            buttonBuild.Enabled = true;
+        }
+        
         /// <summary>
         /// Присвоение в поля ввода значений по умолчанию
         /// </summary>
         /// <param name="parameters"></param>
         private void ParameterSettings(Parameters parameters)
         {
-            textBoxA.Text = parameters.Thickness.ToString();
-            textBoxB.Text = parameters.Length.ToString();
-            textBoxC.Text = parameters.Width.ToString();
-            textBoxD.Text = parameters.LeftWallHeight.ToString();
-            textBoxE.Text = parameters.RightWallHeight.ToString();
+            textBoxThickness.Text = parameters.Thickness.ToString();
+            textBoxLength.Text = parameters.Length.ToString();
+            textBoxWidth.Text = parameters.Width.ToString();
+            textBoxLeftWallHeight.Text = 
+                parameters.LeftWallHeight.ToString();
+            textBoxRightWallHeight.Text = 
+                parameters.RightWallHeight.ToString();
             checkBoxRounding.Checked = parameters.Rounding;
             textBoxCorner.Text = parameters.Radius.ToString();
         }
@@ -140,24 +224,9 @@ namespace Shelves.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxA_TextChanged(object sender, EventArgs e)
+        private void textBoxThickness_TextChanged(object sender, EventArgs e)
         {
-            _thickness = CheckValueType(textBoxA);
-            if (_thickness == 0) return;
-
-            try
-            {
-                _shelvesParameters.Thickness = _thickness;
-                textBoxA.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxA, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxA.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxA, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            SetParameterValue(textBoxThickness);
         }
 
         /// <summary>
@@ -165,24 +234,9 @@ namespace Shelves.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxB_TextChanged(object sender, EventArgs e)
+        private void textBoxLength_TextChanged(object sender, EventArgs e)
         {
-            _length = CheckValueType(textBoxB);
-            if (_length == 0) return;
-
-            try
-            {
-                _shelvesParameters.Length = _length;
-                textBoxB.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxB, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxB.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxB, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            SetParameterValue(textBoxLength);
         }
 
         /// <summary>
@@ -190,24 +244,9 @@ namespace Shelves.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxC_TextChanged(object sender, EventArgs e)
+        private void textBoxWidth_TextChanged(object sender, EventArgs e)
         {
-            _width = CheckValueType(textBoxC);
-            if (_width == 0) return;
-
-            try
-            {
-                _shelvesParameters.Width = _width;
-                textBoxC.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxC, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxC.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxC, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            SetParameterValue(textBoxWidth);
         }
 
         /// <summary>
@@ -215,24 +254,9 @@ namespace Shelves.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxD_TextChanged(object sender, EventArgs e)
+        private void textBoxLeftWall_TextChanged(object sender, EventArgs e)
         {
-            _leftWallHeight = CheckValueType(textBoxD);
-            if (_leftWallHeight == 0) return;
-
-            try
-            {
-                _shelvesParameters.LeftWallHeight = _leftWallHeight;
-                textBoxD.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxD, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxD.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxD, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+            SetParameterValue(textBoxLeftWallHeight);
         }
 
         /// <summary>
@@ -240,24 +264,19 @@ namespace Shelves.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxE_TextChanged(object sender, EventArgs e)
+        private void textBoxRightWall_TextChanged(object sender, EventArgs e)
         {
-            _rightWallHeight = CheckValueType(textBoxE);
-            if (_rightWallHeight == 0) return;
+            SetParameterValue(textBoxRightWallHeight);
+        }
 
-            try
-            {
-                _shelvesParameters.RightWallHeight = _rightWallHeight;
-                textBoxE.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxE, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxE.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxE, exception.Message);
-                buttonBuild.Enabled = false;
-            }
+        /// <summary>
+        /// Радиус скругленных углов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxCorner_TextChanged(object sender, EventArgs e)
+        {
+            SetParameterValue(textBoxCorner);
         }
 
         /// <summary>
@@ -292,60 +311,7 @@ namespace Shelves.UI
             _shelvesParameters = new Parameters(0);
             ParameterSettings(_shelvesParameters);
         }
-
-        /// <summary>
-        /// Наличие скругленных внешних углов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBoxRounding_CheckedChanged(object sender, EventArgs e)
-        {
-            _rounding = checkBoxRounding.Checked;
-
-            if (_rounding)
-            {
-                textBoxCorner.ReadOnly = false;
-                labelTextCorner.Visible = false;
-                labelTextCornerNotes.Visible = false;
-                labelCorner.Visible = true;
-                labelCornerParameters.Visible = true;
-            }
-            else
-            {
-                textBoxCorner.ReadOnly = true;
-                labelCorner.Visible = false;
-                labelCornerParameters.Visible = false;
-                labelTextCorner.Visible = true;
-                labelTextCornerNotes.Visible = true;
-            }
-            
-        }
-
-        /// <summary>
-        /// Радиус скругленных углов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxCorner_TextChanged(object sender, EventArgs e)
-        {
-            _radius = CheckValueType(textBoxCorner);
-            if (_radius == 0) return;
-
-            try
-            {
-                _shelvesParameters.Radius = _radius;
-                textBoxCorner.BackColor = Color.White;
-                toolTip.SetToolTip(textBoxCorner, "");
-                buttonBuild.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                textBoxCorner.BackColor = Color.DarkSalmon;
-                toolTip.SetToolTip(textBoxCorner, exception.Message);
-                buttonBuild.Enabled = false;
-            }
-        }
-
+        
         /// <summary>
         /// Построение 3D-модели подвесных полок
         /// </summary>
@@ -353,18 +319,6 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void buttonBuild_Click(object sender, EventArgs e)
         {
-            try
-            {
-                _shelvesParameters = new Parameters(_thickness, _length, 
-                    _width, _leftWallHeight, _rightWallHeight, _rounding,
-                    _radius);
-                buttonBuild.Enabled = true;
-            }
-            catch
-            {
-                buttonBuild.Enabled = false;
-            }
-
             try
             {
                 _kompasConnector.OpenKompas();
@@ -376,6 +330,5 @@ namespace Shelves.UI
                 MessageBox.Show(exception.ToString());
             }
         }
-
     }
 }

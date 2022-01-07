@@ -42,16 +42,16 @@ namespace ShelvesParameters
         /// </summary>
         private int _radius;
         
-
         /// <summary>
         /// Валидация значений параметров
         /// </summary>
         /// <param name="value">Присваиваемое значение</param>
-        /// <param name="min">Минимальное значение параметра</param>
-        /// <param name="max">Максимальное значение параметра</param>
-        private static int ValidationValue(int value, int min, int max)
+        /// <param name="minValue">Минимальное значение параметра</param>
+        /// <param name="maxValue">Максимальное значение параметра</param>
+        private static int ValidationValue(int value, 
+            int minValue, int maxValue)
         {
-            if (value < min || value > max)
+            if (value < minValue || value > maxValue)
             {
                 throw new ArgumentException("Значение вне диапазона");
             }
@@ -142,6 +142,85 @@ namespace ShelvesParameters
         }
 
         /// <summary>
+        /// Устанавливает значение параметра по названию
+        /// </summary>
+        /// <param name="parameter">Имя параметра</param>
+        /// <param name="value">Значение</param>
+        public void SetValue(Parameter parameter, int value)
+        {
+            switch (parameter)
+            {
+                case Parameter.Thickness:
+                {
+                    Thickness = value;
+                    break;
+                }
+                case Parameter.Length:
+                {
+                    Length = value;
+                    break;
+                }
+                case Parameter.Width:
+                {
+                    Width = value;
+                    break;
+                }
+                case Parameter.LeftWallHeight:
+                {
+                    LeftWallHeight = value;
+                    break;
+                }
+                case Parameter.RightWallHeight:
+                {
+                    RightWallHeight = value;
+                    break;
+                }
+                case Parameter.Radius:
+                {
+                    Radius = value;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Возвращает значение по названию параметра
+        /// </summary>
+        /// <param name="parameter">Имя параметра</param>
+        public int GetValue(Parameter parameter)
+        {
+            switch (parameter)
+            {
+                case Parameter.Thickness:
+                {
+                    return Thickness;
+                }
+                case Parameter.Length:
+                {
+                    return Length;
+                }
+                case Parameter.Width:
+                {
+                    return Width;
+                }
+                case Parameter.LeftWallHeight:
+                {
+                    return LeftWallHeight;
+                }
+                case Parameter.RightWallHeight:
+                {
+                    return RightWallHeight;
+                }
+                case Parameter.Radius:
+                {
+                    return Radius;
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
         /// Пустой конструктор
         /// </summary>
         public Parameters()
@@ -173,7 +252,7 @@ namespace ShelvesParameters
                     break;
             }
         }
-
+        
         /// <summary>
         /// Присвоение значений по умолчанию
         /// </summary>
@@ -217,30 +296,6 @@ namespace ShelvesParameters
             CommonWallHeight = 0;
             Rounding = true;
             Radius = 50;
-        }
-
-        /// <summary>
-        /// Конструктор класса Parameters
-        /// </summary>
-        /// <param name="thickness">Толщина досок</param>
-        /// <param name="length">Длина полок</param>
-        /// <param name="width">Ширина полок</param>
-        /// <param name="leftWallHeight">Высота левой стенки</param>
-        /// <param name="rightWallHeight">Высота правой стенки</param>
-        /// <param name="rounding">Скругление внешних углов</param>
-        /// <param name="radius">Радиус скругления</param>
-        public Parameters(int thickness, int length, int width, 
-            int leftWallHeight, int rightWallHeight, bool rounding,
-            int radius)
-        {
-            Thickness = thickness;
-            Length = length;
-            Width = width;
-            LeftWallHeight = leftWallHeight;
-            RightWallHeight = rightWallHeight;
-            CommonWallHeight = 0;
-            Rounding = rounding;
-            Radius = radius;
         }
     }
 }

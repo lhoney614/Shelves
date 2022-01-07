@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxC = new System.Windows.Forms.TextBox();
-            this.textBoxA = new System.Windows.Forms.TextBox();
-            this.textBoxB = new System.Windows.Forms.TextBox();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.textBoxThickness = new System.Windows.Forms.TextBox();
+            this.textBoxLength = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -41,9 +41,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxE = new System.Windows.Forms.TextBox();
+            this.textBoxRightWallHeight = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBoxD = new System.Windows.Forms.TextBox();
+            this.textBoxLeftWallHeight = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -58,11 +58,11 @@
             this.minParamButton = new System.Windows.Forms.Button();
             this.checkBoxRounding = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.labelTextCornerNotes = new System.Windows.Forms.Label();
+            this.labelTextCorner = new System.Windows.Forms.Label();
             this.labelCornerParameters = new System.Windows.Forms.Label();
             this.labelCorner = new System.Windows.Forms.Label();
             this.textBoxCorner = new System.Windows.Forms.TextBox();
-            this.labelTextCorner = new System.Windows.Forms.Label();
-            this.labelTextCornerNotes = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -72,9 +72,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBoxC);
-            this.groupBox1.Controls.Add(this.textBoxA);
-            this.groupBox1.Controls.Add(this.textBoxB);
+            this.groupBox1.Controls.Add(this.textBoxWidth);
+            this.groupBox1.Controls.Add(this.textBoxThickness);
+            this.groupBox1.Controls.Add(this.textBoxLength);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -82,40 +82,40 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(9, 11);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(308, 114);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Основные параметры полок";
             // 
-            // textBoxC
+            // textBoxWidth
             // 
-            this.textBoxC.Location = new System.Drawing.Point(147, 76);
-            this.textBoxC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBoxC.Name = "textBoxC";
-            this.textBoxC.Size = new System.Drawing.Size(46, 20);
-            this.textBoxC.TabIndex = 5;
-            this.textBoxC.TextChanged += new System.EventHandler(this.textBoxC_TextChanged);
+            this.textBoxWidth.Location = new System.Drawing.Point(147, 76);
+            this.textBoxWidth.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.textBoxWidth.Size = new System.Drawing.Size(46, 20);
+            this.textBoxWidth.TabIndex = 5;
+            this.textBoxWidth.TextChanged += new System.EventHandler(this.textBoxWidth_TextChanged);
             // 
-            // textBoxA
+            // textBoxThickness
             // 
-            this.textBoxA.Location = new System.Drawing.Point(147, 30);
-            this.textBoxA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBoxA.Name = "textBoxA";
-            this.textBoxA.Size = new System.Drawing.Size(46, 20);
-            this.textBoxA.TabIndex = 4;
-            this.textBoxA.TextChanged += new System.EventHandler(this.textBoxA_TextChanged);
+            this.textBoxThickness.Location = new System.Drawing.Point(147, 30);
+            this.textBoxThickness.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxThickness.Name = "textBoxThickness";
+            this.textBoxThickness.Size = new System.Drawing.Size(46, 20);
+            this.textBoxThickness.TabIndex = 4;
+            this.textBoxThickness.TextChanged += new System.EventHandler(this.textBoxThickness_TextChanged);
             // 
-            // textBoxB
+            // textBoxLength
             // 
-            this.textBoxB.Location = new System.Drawing.Point(147, 53);
-            this.textBoxB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBoxB.Name = "textBoxB";
-            this.textBoxB.Size = new System.Drawing.Size(46, 20);
-            this.textBoxB.TabIndex = 4;
-            this.textBoxB.TextChanged += new System.EventHandler(this.textBoxB_TextChanged);
+            this.textBoxLength.Location = new System.Drawing.Point(147, 53);
+            this.textBoxLength.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxLength.Name = "textBoxLength";
+            this.textBoxLength.Size = new System.Drawing.Size(46, 20);
+            this.textBoxLength.TabIndex = 4;
+            this.textBoxLength.TextChanged += new System.EventHandler(this.textBoxLength_TextChanged);
             // 
             // label8
             // 
@@ -179,31 +179,31 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBoxE);
+            this.groupBox2.Controls.Add(this.textBoxRightWallHeight);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.textBoxD);
+            this.groupBox2.Controls.Add(this.textBoxLeftWallHeight);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(9, 129);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(308, 125);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Дополнительные параметры полок";
             // 
-            // textBoxE
+            // textBoxRightWallHeight
             // 
-            this.textBoxE.Location = new System.Drawing.Point(147, 53);
-            this.textBoxE.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBoxE.Name = "textBoxE";
-            this.textBoxE.Size = new System.Drawing.Size(46, 20);
-            this.textBoxE.TabIndex = 5;
-            this.textBoxE.TextChanged += new System.EventHandler(this.textBoxE_TextChanged);
+            this.textBoxRightWallHeight.Location = new System.Drawing.Point(147, 53);
+            this.textBoxRightWallHeight.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxRightWallHeight.Name = "textBoxRightWallHeight";
+            this.textBoxRightWallHeight.Size = new System.Drawing.Size(46, 20);
+            this.textBoxRightWallHeight.TabIndex = 5;
+            this.textBoxRightWallHeight.TextChanged += new System.EventHandler(this.textBoxRightWall_TextChanged);
             // 
             // label12
             // 
@@ -216,14 +216,14 @@
             this.label12.Text = "Параметр E должен быть на 50 мм меньше D.\r\nУчитывайте это при подборе высоты стен" +
     "ок.";
             // 
-            // textBoxD
+            // textBoxLeftWallHeight
             // 
-            this.textBoxD.Location = new System.Drawing.Point(147, 30);
-            this.textBoxD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBoxD.Name = "textBoxD";
-            this.textBoxD.Size = new System.Drawing.Size(46, 20);
-            this.textBoxD.TabIndex = 4;
-            this.textBoxD.TextChanged += new System.EventHandler(this.textBoxD_TextChanged);
+            this.textBoxLeftWallHeight.Location = new System.Drawing.Point(147, 30);
+            this.textBoxLeftWallHeight.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxLeftWallHeight.Name = "textBoxLeftWallHeight";
+            this.textBoxLeftWallHeight.Size = new System.Drawing.Size(46, 20);
+            this.textBoxLeftWallHeight.TabIndex = 4;
+            this.textBoxLeftWallHeight.TextChanged += new System.EventHandler(this.textBoxLeftWall_TextChanged);
             // 
             // label11
             // 
@@ -281,7 +281,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(322, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(623, 485);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -291,7 +291,7 @@
             // buttonBuild
             // 
             this.buttonBuild.Location = new System.Drawing.Point(126, 471);
-            this.buttonBuild.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonBuild.Margin = new System.Windows.Forms.Padding(2);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(75, 24);
             this.buttonBuild.TabIndex = 3;
@@ -305,9 +305,9 @@
             this.groupBox3.Controls.Add(this.maxParamButton);
             this.groupBox3.Controls.Add(this.minParamButton);
             this.groupBox3.Location = new System.Drawing.Point(9, 344);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(308, 122);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
@@ -316,7 +316,7 @@
             // defaultPramButton
             // 
             this.defaultPramButton.Location = new System.Drawing.Point(45, 84);
-            this.defaultPramButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.defaultPramButton.Margin = new System.Windows.Forms.Padding(2);
             this.defaultPramButton.Name = "defaultPramButton";
             this.defaultPramButton.Size = new System.Drawing.Size(213, 24);
             this.defaultPramButton.TabIndex = 2;
@@ -327,7 +327,7 @@
             // maxParamButton
             // 
             this.maxParamButton.Location = new System.Drawing.Point(45, 54);
-            this.maxParamButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.maxParamButton.Margin = new System.Windows.Forms.Padding(2);
             this.maxParamButton.Name = "maxParamButton";
             this.maxParamButton.Size = new System.Drawing.Size(213, 24);
             this.maxParamButton.TabIndex = 1;
@@ -338,7 +338,7 @@
             // minParamButton
             // 
             this.minParamButton.Location = new System.Drawing.Point(45, 25);
-            this.minParamButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.minParamButton.Margin = new System.Windows.Forms.Padding(2);
             this.minParamButton.Name = "minParamButton";
             this.minParamButton.Size = new System.Drawing.Size(213, 24);
             this.minParamButton.TabIndex = 0;
@@ -350,7 +350,7 @@
             // 
             this.checkBoxRounding.AutoSize = true;
             this.checkBoxRounding.Location = new System.Drawing.Point(7, 24);
-            this.checkBoxRounding.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxRounding.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRounding.Name = "checkBoxRounding";
             this.checkBoxRounding.Size = new System.Drawing.Size(162, 17);
             this.checkBoxRounding.TabIndex = 10;
@@ -367,13 +367,32 @@
             this.groupBox4.Controls.Add(this.textBoxCorner);
             this.groupBox4.Controls.Add(this.checkBoxRounding);
             this.groupBox4.Location = new System.Drawing.Point(9, 259);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(308, 80);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Параметры на выбор";
+            // 
+            // labelTextCornerNotes
+            // 
+            this.labelTextCornerNotes.AutoSize = true;
+            this.labelTextCornerNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTextCornerNotes.Location = new System.Drawing.Point(4, 47);
+            this.labelTextCornerNotes.Name = "labelTextCornerNotes";
+            this.labelTextCornerNotes.Size = new System.Drawing.Size(51, 13);
+            this.labelTextCornerNotes.TabIndex = 15;
+            this.labelTextCornerNotes.Text = "ПРИМ.:";
+            // 
+            // labelTextCorner
+            // 
+            this.labelTextCorner.AutoSize = true;
+            this.labelTextCorner.Location = new System.Drawing.Point(61, 47);
+            this.labelTextCorner.Name = "labelTextCorner";
+            this.labelTextCorner.Size = new System.Drawing.Size(224, 26);
+            this.labelTextCorner.TabIndex = 14;
+            this.labelTextCorner.Text = "Скругление углов придаёт эстетичный вид\r\nи создает более безопасные условия";
             // 
             // labelCornerParameters
             // 
@@ -398,30 +417,11 @@
             // textBoxCorner
             // 
             this.textBoxCorner.Location = new System.Drawing.Point(147, 53);
-            this.textBoxCorner.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxCorner.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCorner.Name = "textBoxCorner";
             this.textBoxCorner.Size = new System.Drawing.Size(46, 20);
             this.textBoxCorner.TabIndex = 11;
             this.textBoxCorner.TextChanged += new System.EventHandler(this.textBoxCorner_TextChanged);
-            // 
-            // labelTextCorner
-            // 
-            this.labelTextCorner.AutoSize = true;
-            this.labelTextCorner.Location = new System.Drawing.Point(61, 47);
-            this.labelTextCorner.Name = "labelTextCorner";
-            this.labelTextCorner.Size = new System.Drawing.Size(224, 26);
-            this.labelTextCorner.TabIndex = 14;
-            this.labelTextCorner.Text = "Скругление углов придаёт эстетичный вид\r\nи создает более безопасные условия";
-            // 
-            // labelTextCornerNotes
-            // 
-            this.labelTextCornerNotes.AutoSize = true;
-            this.labelTextCornerNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTextCornerNotes.Location = new System.Drawing.Point(4, 47);
-            this.labelTextCornerNotes.Name = "labelTextCornerNotes";
-            this.labelTextCornerNotes.Size = new System.Drawing.Size(51, 13);
-            this.labelTextCornerNotes.TabIndex = 15;
-            this.labelTextCornerNotes.Text = "ПРИМ.:";
             // 
             // MainForm
             // 
@@ -435,11 +435,11 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
-            this.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.Padding = new System.Windows.Forms.Padding(8);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Shelves3DPlugin";
             this.groupBox1.ResumeLayout(false);
@@ -472,11 +472,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonBuild;
-        private System.Windows.Forms.TextBox textBoxA;
-        private System.Windows.Forms.TextBox textBoxC;
-        private System.Windows.Forms.TextBox textBoxB;
-        private System.Windows.Forms.TextBox textBoxE;
-        private System.Windows.Forms.TextBox textBoxD;
+        private System.Windows.Forms.TextBox textBoxThickness;
+        private System.Windows.Forms.TextBox textBoxWidth;
+        private System.Windows.Forms.TextBox textBoxLength;
+        private System.Windows.Forms.TextBox textBoxRightWallHeight;
+        private System.Windows.Forms.TextBox textBoxLeftWallHeight;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button defaultPramButton;
