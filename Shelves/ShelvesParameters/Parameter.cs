@@ -29,10 +29,20 @@
         /// Высота правой стенки
         /// </summary>
         RightWallHeight,
+
+        /// <summary>
+        /// Высота общей стенки
+        /// </summary>
+        CommonWallHeight,
         
         /// <summary>
         /// Радиус скругления углов
         /// </summary>
-        Radius
+        Radius,
+
+        /// <summary>
+        /// Наличие скругления
+        /// </summary>
+        Rounding
     }
 }

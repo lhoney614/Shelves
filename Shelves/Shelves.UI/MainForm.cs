@@ -47,7 +47,8 @@ namespace Shelves.UI
         public MainForm()
         {
             InitializeComponent();
-            RoundingNotChecked();
+            labelCorner.Visible = false;
+            labelCornerParameters.Visible = false;
             buttonBuild.Enabled = false;
 
             _dictionaryTextBox = 
@@ -89,6 +90,7 @@ namespace Shelves.UI
             _dictionaryTextBox.Remove(textBoxCorner);
             _dictionaryTextBox.Add(textBoxCorner,
                 new KeyValuePair<Parameter, bool>(Parameter.Radius, true));
+            _shelvesParameters.Rounding = false;
         }
 
         /// <summary>
@@ -106,6 +108,7 @@ namespace Shelves.UI
             _dictionaryTextBox.Remove(textBoxCorner);
             _dictionaryTextBox.Add(textBoxCorner,
                 new KeyValuePair<Parameter, bool>(Parameter.Radius, false));
+            _shelvesParameters.Rounding = true;
         }
 
         /// <summary>
@@ -138,12 +141,14 @@ namespace Shelves.UI
             {
                 var value = Convert.ToInt32(textBox.Text);
                 toolTip.SetToolTip(textBox, "");
+                BuildButtonEnabled();
                 return value;
             }
             catch (Exception)
             {
                 toolTip.SetToolTip(textBox, "Недопустимые символы");
                 textBox.BackColor = _errorColor;
+                BuildButtonEnabled();
                 return 0;
             }
         }
@@ -319,6 +324,8 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void buttonBuild_Click(object sender, EventArgs e)
         {
+            //автоматически вычисляемое поле
+            _shelvesParameters.CommonWallHeight = 0;
             try
             {
                 _kompasConnector.OpenKompas();
