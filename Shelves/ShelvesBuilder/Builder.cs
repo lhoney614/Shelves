@@ -106,7 +106,7 @@ namespace ShelvesBuilder
         /// </summary>
         /// <param name="planeType">Выбор плоскости</param>
         /// <returns>ksSketchDefinition</returns>
-        public ksSketchDefinition CreateSketch(Obj3dType planeType)
+        private ksSketchDefinition CreateSketch(Obj3dType planeType)
         {
             var plane = (ksEntity)_connector
                 .KsPart
@@ -162,7 +162,7 @@ namespace ShelvesBuilder
         /// <param name="width">Верхний правый угол</param>
         /// <param name="height">Верхний правый угол</param>
         /// <param name="thickness">Толщина выдавливания</param>
-        public void CreateShelf(int x, int y, int width, 
+        private void CreateShelf(int x, int y, int width, 
             int height, int thickness)
         {
             var sketchDefinition = CreateSketch(Obj3dType.o3d_planeXOY);
@@ -192,7 +192,7 @@ namespace ShelvesBuilder
         /// <summary>
         /// Скругление (фаска) внешних углов
         /// </summary>
-        public void CreateFillet(int radius,
+        private void CreateFillet(int radius,
             double x, double y, double z)
         {
             var filletEntity = (ksEntity)_connector

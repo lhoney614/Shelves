@@ -78,7 +78,7 @@ namespace Shelves.UI
         /// <summary>
         /// Изменение формы, если НЕ отмечено скругление углов
         /// </summary>
-        public void RoundingNotChecked()
+        private void RoundingNotChecked()
         {
             textBoxCorner.ReadOnly = true;
             labelCorner.Visible = false;
@@ -96,7 +96,7 @@ namespace Shelves.UI
         /// <summary>
         /// Изменение формы, если отмечено скругление углов
         /// </summary>
-        public void RoundingChecked()
+        private void RoundingChecked()
         {
             textBoxCorner.ReadOnly = false;
             labelTextCorner.Visible = false;

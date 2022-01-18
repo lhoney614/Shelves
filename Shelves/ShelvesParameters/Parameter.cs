@@ -38,11 +38,6 @@
         /// <summary>
         /// Радиус скругления углов
         /// </summary>
-        Radius,
-
-        /// <summary>
-        /// Наличие скругления
-        /// </summary>
-        Rounding
+        Radius
     }
 }
