@@ -4,15 +4,12 @@ using ShelvesParameters;
 
 namespace Shelves.UnitTests
 {
-    /// <summary>
-    /// Определение класса юнит-тестирования
-    /// </summary>
     [TestFixture]
-    public class ParametersTest
+    class ParametersTest
     {
         private static readonly Parameters SourceParameters = new Parameters(0);
 
-        [TestCase(Parameter.Thickness, 17, 
+        [TestCase(Parameter.Thickness, 17,
             TestName = "Позитивный тест геттера Thickness")]
         [TestCase(Parameter.Length, 600,
             TestName = "Позитивный тест геттера Length")]
@@ -33,7 +30,7 @@ namespace Shelves.UnitTests
 
             //Assert
             Assert.AreEqual(expected, actual, "Возвращенное значение" +
-                                              $"параметра: {parameter} "+
+                                              $"параметра: {parameter} " +
                                               "не соответствует ожидаемому");
         }
 
@@ -44,7 +41,7 @@ namespace Shelves.UnitTests
             var actual = SourceParameters.Rounding;
 
             //Assert
-            Assert.AreEqual(true, actual, 
+            Assert.AreEqual(true, actual,
                 "Возвращенное значение не соответствует ожидаемому");
         }
 
@@ -63,7 +60,7 @@ namespace Shelves.UnitTests
                                               "при неправильном switch" +
                                               "не соответствует ожидаемому");
         }
-        
+
         [TestCase(Parameter.Thickness, 17,
             TestName = "Позитивный тест сеттера Thickness")]
         [TestCase(Parameter.Length, 600,
@@ -82,8 +79,8 @@ namespace Shelves.UnitTests
         {
             //Assert
             Assert.DoesNotThrow(
-                () => {SourceParameters.SetValue(parameter, value); },
-                "Установленное значение не вошло в допустимый диапазон значений" 
+                () => { SourceParameters.SetValue(parameter, value); },
+                "Установленное значение не вошло в допустимый диапазон значений"
                 + $"параметра: {parameter} ");
         }
 
@@ -108,31 +105,31 @@ namespace Shelves.UnitTests
                 "При некорректном switch ничего не произошло");
         }
 
-        [TestCase(Parameter.Thickness,10, 
+        [TestCase(Parameter.Thickness, 10,
             TestName = "Тест сеттера Thickness со значением меньше минимума")]
-        [TestCase(Parameter.Thickness, 30, 
+        [TestCase(Parameter.Thickness, 30,
             TestName = "Тест сеттера Thickness со значением больше максимума")]
-        [TestCase(Parameter.Length, 400, 
+        [TestCase(Parameter.Length, 400,
             TestName = "Тест сеттера Length со значением меньше минимума")]
-        [TestCase(Parameter.Length, 800, 
+        [TestCase(Parameter.Length, 800,
             TestName = "Тест сеттера Length со значением больше максимума")]
-        [TestCase(Parameter.Width, 100, 
+        [TestCase(Parameter.Width, 100,
             TestName = "Тест сеттера Width со значением меньше минимума")]
         [TestCase(Parameter.Width, 400,
             TestName = "Тест сеттера Width со значением больше максимума")]
-        [TestCase(Parameter.LeftWallHeight, 100, 
+        [TestCase(Parameter.LeftWallHeight, 100,
             TestName = "Тест сеттера LeftWallHeight со значением меньше минимума")]
-        [TestCase(Parameter.LeftWallHeight, 300, 
+        [TestCase(Parameter.LeftWallHeight, 300,
             TestName = "Тест сеттера LeftWallHeight со значением больше максимума")]
-        [TestCase(Parameter.RightWallHeight, 50, 
+        [TestCase(Parameter.RightWallHeight, 50,
             TestName = "Тест сеттера RightWallHeight со значением меньше минимума")]
-        [TestCase(Parameter.RightWallHeight, 200, 
+        [TestCase(Parameter.RightWallHeight, 200,
             TestName = "Тест сеттера RightWallHeight со значением больше максимума")]
         [TestCase(Parameter.CommonWallHeight, 100,
             TestName = "Тест сеттера CommonWallHeight со значением, не равным нулю")]
-        [TestCase(Parameter.Radius, 20, 
+        [TestCase(Parameter.Radius, 20,
             TestName = "Тест сеттера Radius со значением меньше минимума")]
-        [TestCase(Parameter.Radius, 60, 
+        [TestCase(Parameter.Radius, 60,
             TestName = "Тест сеттера Radius со значением больше максимума")]
         public void SetParameter_SetOutOfRangeValue(Parameter parameter, int value)
         {
@@ -142,9 +139,9 @@ namespace Shelves.UnitTests
                 "Не входящее в диапазон значение не выбросило исключение для "
                 + $"параметра: {parameter} ");
         }
-        
 
-        [TestCase(130, "Исключение из-за неправильной зависимости параметров: разница меньше 50", 
+
+        [TestCase(130, "Исключение из-за неправильной зависимости параметров: разница меньше 50",
             TestName = "Тест сеттера RightWallHeight " +
                             "с меньшей разницей зависимости от LeftWallHeight")]
         [TestCase(120, "Исключение из-за неправильной зависимости параметров: разница больше 50",
@@ -191,7 +188,7 @@ namespace Shelves.UnitTests
             Assert.AreEqual(expected, actual, "Параметры " + $"{name} не совпали");
         }
 
-        [TestCase(4, 
+        [TestCase(4,
             TestName = "Негативный тест на некорректное значение switch")]
         public void Constructor_SetIncorrectSwitch(int switchCount)
         {
