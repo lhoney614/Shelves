@@ -68,6 +68,7 @@ namespace ShelvesBuilder
                 CreateFillet(parameters.Radius, x, y, z);
             }
 
+            //TODO: toconst
             //Задняя дощечка нижней полки
             CreateShelf(parameters.Length + parameters.Thickness * 2,
                 -parameters.CommonWallHeight + parameters.RightWallHeight,

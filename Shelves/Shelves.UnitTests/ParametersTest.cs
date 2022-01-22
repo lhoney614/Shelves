@@ -140,7 +140,7 @@ namespace Shelves.UnitTests
                 + $"параметра: {parameter} ");
         }
 
-
+        //TODO: RSDN
         [TestCase(130, "Исключение из-за неправильной зависимости параметров: разница меньше 50",
             TestName = "Тест сеттера RightWallHeight " +
                             "с меньшей разницей зависимости от LeftWallHeight")]

@@ -80,6 +80,7 @@ namespace Shelves.UI
         /// </summary>
         private void RoundingNotChecked()
         {
+            //TODO: дубль
             textBoxCorner.ReadOnly = true;
             labelCorner.Visible = false;
             labelCornerParameters.Visible = false;
@@ -111,6 +112,7 @@ namespace Shelves.UI
             _shelvesParameters.Rounding = true;
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Наличие скругленных внешних углов
         /// </summary>
@@ -119,6 +121,7 @@ namespace Shelves.UI
         private void checkBoxRounding_CheckedChanged(object sender,
             EventArgs e)
         {
+            //TODO:
             if (checkBoxRounding.Checked)
             {
                 RoundingChecked();
@@ -224,6 +227,7 @@ namespace Shelves.UI
             textBoxCorner.Text = parameters.Radius.ToString();
         }
 
+        //TODO: дубль
         /// <summary>
         /// Толщина досок, из которых будут сделаны полки
         /// </summary>
@@ -284,6 +288,7 @@ namespace Shelves.UI
             SetParameterValue(textBoxCorner);
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Минимальные параметры полок
         /// </summary>
@@ -295,6 +300,7 @@ namespace Shelves.UI
             ParameterSettings(_shelvesParameters);
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Максимальные параметры полок
         /// </summary>
@@ -306,6 +312,7 @@ namespace Shelves.UI
             ParameterSettings(_shelvesParameters);
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Параметры полок по умолчанию
         /// </summary>
@@ -317,6 +324,7 @@ namespace Shelves.UI
             ParameterSettings(_shelvesParameters);
         }
         
+
         /// <summary>
         /// Построение 3D-модели подвесных полок
         /// </summary>
