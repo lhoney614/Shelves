@@ -252,8 +252,6 @@ namespace Shelves.UI
         /// <param name="e"></param>
         private void ButtonBuild_Click(object sender, EventArgs e)
         {
-            //автоматически вычисляемое поле
-            _shelvesParameters.CommonWallHeight = 0;
             try
             {
                 _kompasConnector.OpenKompas();
