@@ -3,7 +3,7 @@
     /// <summary>
     /// Перечисление, содержащее имена параметров
     /// </summary>
-    public enum Parameter
+    public enum ParameterName
     {
         /// <summary>
         /// Толщина досок

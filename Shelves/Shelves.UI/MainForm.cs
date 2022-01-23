@@ -29,7 +29,7 @@ namespace Shelves.UI
         /// TextBox соответствующему параметру
         /// </summary>
         private readonly Dictionary<TextBox, 
-            KeyValuePair<Parameter, bool>> _dictionaryTextBox;
+            KeyValuePair<ParameterName, bool>> _dictionaryTextBox;
         
         /// <summary>
         /// Цвет по умолчанию (белый)
@@ -52,84 +52,56 @@ namespace Shelves.UI
             buttonBuild.Enabled = false;
 
             _dictionaryTextBox = 
-                new Dictionary<TextBox, KeyValuePair<Parameter, bool>>
+                new Dictionary<TextBox, KeyValuePair<ParameterName, bool>>
             {
-                {textBoxThickness, new KeyValuePair<Parameter, bool>
-                        (Parameter.Thickness, false)},
+                {textBoxThickness, new KeyValuePair<ParameterName, bool>
+                        (ParameterName.Thickness, false)},
 
-                {textBoxLength, new KeyValuePair<Parameter, bool>
-                        (Parameter.Length, false)},
+                {textBoxLength, new KeyValuePair<ParameterName, bool>
+                        (ParameterName.Length, false)},
 
-                {textBoxWidth, new KeyValuePair<Parameter, bool>
-                        (Parameter.Width, false)},
+                {textBoxWidth, new KeyValuePair<ParameterName, bool>
+                        (ParameterName.Width, false)},
 
-                {textBoxLeftWallHeight, new KeyValuePair<Parameter, bool>
-                        (Parameter.LeftWallHeight, false)},
+                {textBoxLeftWallHeight, new KeyValuePair<ParameterName, bool>
+                        (ParameterName.LeftWallHeight, false)},
 
-                {textBoxRightWallHeight, new KeyValuePair<Parameter, bool>
-                        (Parameter.RightWallHeight, false)},
+                {textBoxRightWallHeight, new KeyValuePair<ParameterName, bool>
+                        (ParameterName.RightWallHeight, false)},
 
-                {textBoxCorner, new KeyValuePair<Parameter, bool>
-                        (Parameter.Radius, true)}
+                {textBoxCorner, new KeyValuePair<ParameterName, bool>
+                        (ParameterName.Radius, true)}
             };
         }
 
-
+        //TODO: объединить две функции с входным параметром от checkbox
         /// <summary>
         /// Изменение формы, если НЕ отмечено скругление углов
         /// </summary>
-        private void RoundingNotChecked()
+        private void RoundingChecked(bool check)
         {
-            //TODO: дубль
-            textBoxCorner.ReadOnly = true;
-            labelCorner.Visible = false;
-            labelCornerParameters.Visible = false;
+            textBoxCorner.ReadOnly = !check;
+            labelCorner.Visible = check;
+            labelCornerParameters.Visible = check;
 
-            labelTextCorner.Visible = true;
-            labelTextCornerNotes.Visible = true;
+            labelTextCorner.Visible = !check;
+            labelTextCornerNotes.Visible = !check;
 
             _dictionaryTextBox.Remove(textBoxCorner);
             _dictionaryTextBox.Add(textBoxCorner,
-                new KeyValuePair<Parameter, bool>(Parameter.Radius, true));
-            _shelvesParameters.Rounding = false;
+                new KeyValuePair<ParameterName, bool>(ParameterName.Radius, !check));
+            _shelvesParameters.Rounding = check;
         }
-
-        /// <summary>
-        /// Изменение формы, если отмечено скругление углов
-        /// </summary>
-        private void RoundingChecked()
-        {
-            textBoxCorner.ReadOnly = false;
-            labelTextCorner.Visible = false;
-            labelTextCornerNotes.Visible = false;
-
-            labelCorner.Visible = true;
-            labelCornerParameters.Visible = true;
-
-            _dictionaryTextBox.Remove(textBoxCorner);
-            _dictionaryTextBox.Add(textBoxCorner,
-                new KeyValuePair<Parameter, bool>(Parameter.Radius, false));
-            _shelvesParameters.Rounding = true;
-        }
-
-        //TODO: RSDN
+        
         /// <summary>
         /// Наличие скругленных внешних углов
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBoxRounding_CheckedChanged(object sender,
+        private void CheckBoxRounding_CheckedChanged(object sender,
             EventArgs e)
         {
-            //TODO:
-            if (checkBoxRounding.Checked)
-            {
-                RoundingChecked();
-            }
-            else
-            {
-                RoundingNotChecked();
-            }
+            RoundingChecked(checkBoxRounding.Checked);
             BuildButtonEnabled();
         }
 
@@ -180,7 +152,7 @@ namespace Shelves.UI
                 toolTip.SetToolTip(textBox, "");
                 _dictionaryTextBox.Remove(textBox);
                 _dictionaryTextBox.Add(textBox, 
-                    new KeyValuePair<Parameter, bool>(parameter, true));
+                    new KeyValuePair<ParameterName, bool>(parameter, true));
             }
             catch (Exception exception)
             {
@@ -188,7 +160,7 @@ namespace Shelves.UI
                 toolTip.SetToolTip(textBox, exception.Message);
                 _dictionaryTextBox.Remove(textBox);
                 _dictionaryTextBox.Add(textBox,
-                    new KeyValuePair<Parameter, bool>(parameter, false));
+                    new KeyValuePair<ParameterName, bool>(parameter, false));
             }
             BuildButtonEnabled();
         }
@@ -227,110 +199,58 @@ namespace Shelves.UI
             textBoxCorner.Text = parameters.Radius.ToString();
         }
 
-        //TODO: дубль
+        //TODO: объединить событие для всех textbox
         /// <summary>
-        /// Толщина досок, из которых будут сделаны полки
+        /// Событие на изменение текста
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxThickness_TextChanged(object sender, EventArgs e)
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            SetParameterValue(textBoxThickness);
+            var textBox = sender as TextBox;
+            SetParameterValue(textBox);
         }
-
-        /// <summary>
-        /// Длина полок
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxLength_TextChanged(object sender, EventArgs e)
-        {
-            SetParameterValue(textBoxLength);
-        }
-
-        /// <summary>
-        /// Ширина полок
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxWidth_TextChanged(object sender, EventArgs e)
-        {
-            SetParameterValue(textBoxWidth);
-        }
-
-        /// <summary>
-        /// Высота левой стенки полок
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxLeftWall_TextChanged(object sender, EventArgs e)
-        {
-            SetParameterValue(textBoxLeftWallHeight);
-        }
-
-        /// <summary>
-        /// Высота правой стенки полок
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxRightWall_TextChanged(object sender, EventArgs e)
-        {
-            SetParameterValue(textBoxRightWallHeight);
-        }
-
-        /// <summary>
-        /// Радиус скругленных углов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxCorner_TextChanged(object sender, EventArgs e)
-        {
-            SetParameterValue(textBoxCorner);
-        }
-
+        
         //TODO: RSDN
         /// <summary>
         /// Минимальные параметры полок
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void minParamButton_Click(object sender, EventArgs e)
+        private void MinParamButton_Click(object sender, EventArgs e)
         {
-            _shelvesParameters = new Parameters(1);
+            _shelvesParameters.MinParameters();
             ParameterSettings(_shelvesParameters);
         }
 
-        //TODO: RSDN
         /// <summary>
         /// Максимальные параметры полок
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void maxParamButton_Click(object sender, EventArgs e)
+        private void MaxParamButton_Click(object sender, EventArgs e)
         {
-            _shelvesParameters = new Parameters(2);
+            _shelvesParameters.MaxParameters();
             ParameterSettings(_shelvesParameters);
         }
 
-        //TODO: RSDN
         /// <summary>
         /// Параметры полок по умолчанию
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void defaultPramButton_Click(object sender, EventArgs e)
+        private void DefaultParamButton_Click(object sender, EventArgs e)
         {
-            _shelvesParameters = new Parameters(0);
+            _shelvesParameters = new Parameters();
             ParameterSettings(_shelvesParameters);
         }
         
-
         /// <summary>
         /// Построение 3D-модели подвесных полок
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonBuild_Click(object sender, EventArgs e)
+        private void ButtonBuild_Click(object sender, EventArgs e)
         {
             //автоматически вычисляемое поле
             _shelvesParameters.CommonWallHeight = 0;

@@ -7,53 +7,53 @@ namespace Shelves.UnitTests
     [TestFixture]
     class ParametersTest
     {
-        private static readonly Parameters SourceParameters = new Parameters(0);
+        private static readonly Parameters SourceParameters = new Parameters();
 
-        [TestCase(Parameter.Thickness, 17,
+        [TestCase(ParameterName.Thickness, 17,
             TestName = "Позитивный тест геттера Thickness")]
-        [TestCase(Parameter.Length, 600,
+        [TestCase(ParameterName.Length, 600,
             TestName = "Позитивный тест геттера Length")]
-        [TestCase(Parameter.Width, 250,
+        [TestCase(ParameterName.Width, 250,
             TestName = "Позитивный тест геттера Width")]
-        [TestCase(Parameter.LeftWallHeight, 175,
+        [TestCase(ParameterName.LeftWallHeight, 175,
             TestName = "Позитивный тест геттера LeftWallHeight")]
-        [TestCase(Parameter.RightWallHeight, 125,
+        [TestCase(ParameterName.RightWallHeight, 125,
             TestName = "Позитивный тест геттера RightWallHeight")]
-        [TestCase(Parameter.CommonWallHeight, 317,
+        [TestCase(ParameterName.CommonWallHeight, 317,
             TestName = "Позитивный тест геттера CommonWallHeight")]
-        [TestCase(Parameter.Radius, 40,
+        [TestCase(ParameterName.Radius, 40,
             TestName = "Позитивный тест геттера Radius")]
-        public void GetParameter_GetCorrectValue(Parameter parameter, int expected)
+        public void GetParameter_GetCorrectValue(ParameterName parameterName, int expected)
         {
             //Act
-            var actual = SourceParameters.GetValue(parameter);
+            var actual = SourceParameters.GetValue(parameterName);
 
             //Assert
             Assert.AreEqual(expected, actual, "Возвращенное значение" +
-                                              $"параметра: {parameter} " +
+                                              $"параметра: {parameterName} " +
                                               "не соответствует ожидаемому");
         }
 
-        [TestCase(TestName = "Позитивный тест геттера Rounding")]
-        public void Rounding_GetCorrectValue()
+        [TestCase(true, TestName = "Позитивный тест геттера Rounding")]
+        public void Rounding_GetCorrectValue(bool expected)
         {
             //Act
             var actual = SourceParameters.Rounding;
 
             //Assert
-            Assert.AreEqual(true, actual,
+            Assert.AreEqual(expected, actual,
                 "Возвращенное значение не соответствует ожидаемому");
         }
 
         [TestCase(10,
             TestName = "Негативный тест геттера неправильного switch")]
-        public void GetParameter_GetIncorrectSwitch(Parameter parameter)
+        public void GetParameter_GetIncorrectSwitch(ParameterName parameterName)
         {
             //Set
             var expected = 0;
 
             //Act
-            var actual = SourceParameters.GetValue(parameter);
+            var actual = SourceParameters.GetValue(parameterName);
 
             //Assert
             Assert.AreEqual(expected, actual, "Возвращенное значение" +
@@ -61,27 +61,27 @@ namespace Shelves.UnitTests
                                               "не соответствует ожидаемому");
         }
 
-        [TestCase(Parameter.Thickness, 17,
+        [TestCase(ParameterName.Thickness, 17,
             TestName = "Позитивный тест сеттера Thickness")]
-        [TestCase(Parameter.Length, 600,
+        [TestCase(ParameterName.Length, 600,
             TestName = "Позитивный тест сеттера Length")]
-        [TestCase(Parameter.Width, 250,
+        [TestCase(ParameterName.Width, 250,
             TestName = "Позитивный тест сеттера Width")]
-        [TestCase(Parameter.LeftWallHeight, 175,
+        [TestCase(ParameterName.LeftWallHeight, 175,
             TestName = "Позитивный тест сеттера LeftWallHeight")]
-        [TestCase(Parameter.RightWallHeight, 125,
+        [TestCase(ParameterName.RightWallHeight, 125,
             TestName = "Позитивный тест сеттера RightWallHeight")]
-        [TestCase(Parameter.CommonWallHeight, 0,
+        [TestCase(ParameterName.CommonWallHeight, 0,
             TestName = "Позитивный тест сеттера Radius")]
-        [TestCase(Parameter.Radius, 40,
+        [TestCase(ParameterName.Radius, 40,
             TestName = "Позитивный тест сеттера Radius")]
-        public void SetParameter_SetCorrectValue(Parameter parameter, int value)
+        public void SetParameter_SetCorrectValue(ParameterName parameterName, int value)
         {
             //Assert
             Assert.DoesNotThrow(
-                () => { SourceParameters.SetValue(parameter, value); },
+                () => { SourceParameters.SetValue(parameterName, value); },
                 "Установленное значение не вошло в допустимый диапазон значений"
-                + $"параметра: {parameter} ");
+                + $"параметра: {parameterName} ");
         }
 
         [TestCase(true, TestName = "Позитивный тест сеттера Rounding")]
@@ -97,54 +97,56 @@ namespace Shelves.UnitTests
 
         [TestCase(10, 100,
             TestName = "Негативный тест сеттера с неправильным switch")]
-        public void SetParameter_SetIncorrectSwitch(Parameter parameter, int value)
+        public void SetParameter_SetIncorrectSwitch(ParameterName parameterName, int value)
         {
             //Assert
             Assert.DoesNotThrow(
-                () => { SourceParameters.SetValue(parameter, value); },
+                () => { SourceParameters.SetValue(parameterName, value); },
                 "При некорректном switch ничего не произошло");
         }
 
-        [TestCase(Parameter.Thickness, 10,
+        [TestCase(ParameterName.Thickness, 10,
             TestName = "Тест сеттера Thickness со значением меньше минимума")]
-        [TestCase(Parameter.Thickness, 30,
+        [TestCase(ParameterName.Thickness, 30,
             TestName = "Тест сеттера Thickness со значением больше максимума")]
-        [TestCase(Parameter.Length, 400,
+        [TestCase(ParameterName.Length, 400,
             TestName = "Тест сеттера Length со значением меньше минимума")]
-        [TestCase(Parameter.Length, 800,
+        [TestCase(ParameterName.Length, 800,
             TestName = "Тест сеттера Length со значением больше максимума")]
-        [TestCase(Parameter.Width, 100,
+        [TestCase(ParameterName.Width, 100,
             TestName = "Тест сеттера Width со значением меньше минимума")]
-        [TestCase(Parameter.Width, 400,
+        [TestCase(ParameterName.Width, 400,
             TestName = "Тест сеттера Width со значением больше максимума")]
-        [TestCase(Parameter.LeftWallHeight, 100,
+        [TestCase(ParameterName.LeftWallHeight, 100,
             TestName = "Тест сеттера LeftWallHeight со значением меньше минимума")]
-        [TestCase(Parameter.LeftWallHeight, 300,
+        [TestCase(ParameterName.LeftWallHeight, 300,
             TestName = "Тест сеттера LeftWallHeight со значением больше максимума")]
-        [TestCase(Parameter.RightWallHeight, 50,
+        [TestCase(ParameterName.RightWallHeight, 50,
             TestName = "Тест сеттера RightWallHeight со значением меньше минимума")]
-        [TestCase(Parameter.RightWallHeight, 200,
+        [TestCase(ParameterName.RightWallHeight, 200,
             TestName = "Тест сеттера RightWallHeight со значением больше максимума")]
-        [TestCase(Parameter.CommonWallHeight, 100,
+        [TestCase(ParameterName.CommonWallHeight, 100,
             TestName = "Тест сеттера CommonWallHeight со значением, не равным нулю")]
-        [TestCase(Parameter.Radius, 20,
+        [TestCase(ParameterName.Radius, 20,
             TestName = "Тест сеттера Radius со значением меньше минимума")]
-        [TestCase(Parameter.Radius, 60,
+        [TestCase(ParameterName.Radius, 60,
             TestName = "Тест сеттера Radius со значением больше максимума")]
-        public void SetParameter_SetOutOfRangeValue(Parameter parameter, int value)
+        public void SetParameter_SetOutOfRangeValue(ParameterName parameterName, int value)
         {
             //Assert
             Assert.Throws<ArgumentException>(
-                () => { SourceParameters.SetValue(parameter, value); },
+                () => { SourceParameters.SetValue(parameterName, value); },
                 "Не входящее в диапазон значение не выбросило исключение для "
-                + $"параметра: {parameter} ");
+                + $"параметра: {parameterName} ");
         }
 
         //TODO: RSDN
-        [TestCase(130, "Исключение из-за неправильной зависимости параметров: разница меньше 50",
+        [TestCase(130, "Исключение из-за неправильной зависимости" +
+                       " параметров: разница меньше 50",
             TestName = "Тест сеттера RightWallHeight " +
                             "с меньшей разницей зависимости от LeftWallHeight")]
-        [TestCase(120, "Исключение из-за неправильной зависимости параметров: разница больше 50",
+        [TestCase(120, "Исключение из-за неправильной зависимости" +
+                       "параметров: разница больше 50",
             TestName = "Тест сеттера RightWallHeight " +
                        "с большей разницей зависимости от LeftWallHeight")]
         public void RightWallHeight_SetWrongValue(int wrongValue, string message)
@@ -155,18 +157,18 @@ namespace Shelves.UnitTests
                 message);
         }
 
-        [TestCase(0, 17, 600, 250, 175, 125,
-            0, true, 40, "по умолчанию",
+        [TestCase(17, 600, 250, 175, 125,
+            0, true, 40, "по умолчанию", -1,
             TestName = "Позитивный тест на конструктор по умолчанию")]
-        [TestCase(1, 15, 500, 200, 150, 100,
-            0, true, 30, "по умолчанию",
+        [TestCase(15, 500, 200, 150, 100,
+            0, true, 30, "минимума", 0,
             TestName = "Позитивный тест на конструктор минимальных значений")]
-        [TestCase(2, 20, 700, 300, 200, 150,
-            0, true, 50, "по умолчанию",
+        [TestCase(20, 700, 300, 200, 150,
+            0, true, 50, "максимума", 1,
             TestName = "Позитивный тест на конструктор максимальных значений")]
-        public void Constructor_SetCorrectSwitch(int switchCount, int thickness,
+        public void ParametersSettings_SetCorrectValue(int thickness,
             int length, int width, int leftwall, int rightwall, int commonwall,
-            bool rounding, int radius, string name)
+            bool rounding, int radius, string name, int count)
         {
             //Set
             var expected = new Parameters
@@ -182,24 +184,28 @@ namespace Shelves.UnitTests
             };
 
             //Act
-            var actual = new Parameters(switchCount);
+            var actual = new Parameters();
+            switch (count)
+            {
+                case 0:
+                    actual.MinParameters();
+                    break;
+                case 1:
+                    actual.MaxParameters();
+                    break;
+            }
+
+            bool check = expected.Thickness == actual.Thickness
+                         && expected.Length == actual.Length
+                         && expected.Width == actual.Width
+                         && expected.LeftWallHeight == actual.LeftWallHeight
+                         && expected.RightWallHeight == actual.RightWallHeight
+                         && expected.CommonWallHeight == actual.CommonWallHeight
+                         && expected.Radius == actual.Radius
+                         && expected.Rounding == actual.Rounding;
 
             //Assert
-            Assert.AreEqual(expected, actual, "Параметры " + $"{name} не совпали");
-        }
-
-        [TestCase(4,
-            TestName = "Негативный тест на некорректное значение switch")]
-        public void Constructor_SetIncorrectSwitch(int switchCount)
-        {
-            //Set
-            var expected = new Parameters();
-
-            //Act
-            var actual = new Parameters(switchCount);
-
-            //Assert
-            Assert.AreEqual(expected, actual, "При некорректном switch не создался пустой объект");
+            Assert.IsTrue(check, "Параметры " + $"{name} не совпали");
         }
     }
 }

@@ -97,7 +97,7 @@
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(46, 20);
             this.textBoxWidth.TabIndex = 5;
-            this.textBoxWidth.TextChanged += new System.EventHandler(this.textBoxWidth_TextChanged);
+            this.textBoxWidth.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // textBoxThickness
             // 
@@ -106,7 +106,7 @@
             this.textBoxThickness.Name = "textBoxThickness";
             this.textBoxThickness.Size = new System.Drawing.Size(46, 20);
             this.textBoxThickness.TabIndex = 4;
-            this.textBoxThickness.TextChanged += new System.EventHandler(this.textBoxThickness_TextChanged);
+            this.textBoxThickness.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // textBoxLength
             // 
@@ -115,7 +115,7 @@
             this.textBoxLength.Name = "textBoxLength";
             this.textBoxLength.Size = new System.Drawing.Size(46, 20);
             this.textBoxLength.TabIndex = 4;
-            this.textBoxLength.TextChanged += new System.EventHandler(this.textBoxLength_TextChanged);
+            this.textBoxLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // label8
             // 
@@ -203,7 +203,7 @@
             this.textBoxRightWallHeight.Name = "textBoxRightWallHeight";
             this.textBoxRightWallHeight.Size = new System.Drawing.Size(46, 20);
             this.textBoxRightWallHeight.TabIndex = 5;
-            this.textBoxRightWallHeight.TextChanged += new System.EventHandler(this.textBoxRightWall_TextChanged);
+            this.textBoxRightWallHeight.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // label12
             // 
@@ -223,7 +223,7 @@
             this.textBoxLeftWallHeight.Name = "textBoxLeftWallHeight";
             this.textBoxLeftWallHeight.Size = new System.Drawing.Size(46, 20);
             this.textBoxLeftWallHeight.TabIndex = 4;
-            this.textBoxLeftWallHeight.TextChanged += new System.EventHandler(this.textBoxLeftWall_TextChanged);
+            this.textBoxLeftWallHeight.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // label11
             // 
@@ -297,7 +297,7 @@
             this.buttonBuild.TabIndex = 3;
             this.buttonBuild.Text = "Построить";
             this.buttonBuild.UseVisualStyleBackColor = true;
-            this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
+            this.buttonBuild.Click += new System.EventHandler(this.ButtonBuild_Click);
             // 
             // groupBox3
             // 
@@ -322,7 +322,7 @@
             this.defaultPramButton.TabIndex = 2;
             this.defaultPramButton.Text = "Параметры по умолчанию";
             this.defaultPramButton.UseVisualStyleBackColor = true;
-            this.defaultPramButton.Click += new System.EventHandler(this.defaultPramButton_Click);
+            this.defaultPramButton.Click += new System.EventHandler(this.DefaultParamButton_Click);
             // 
             // maxParamButton
             // 
@@ -333,7 +333,7 @@
             this.maxParamButton.TabIndex = 1;
             this.maxParamButton.Text = "Максимальные параметры";
             this.maxParamButton.UseVisualStyleBackColor = true;
-            this.maxParamButton.Click += new System.EventHandler(this.maxParamButton_Click);
+            this.maxParamButton.Click += new System.EventHandler(this.MaxParamButton_Click);
             // 
             // minParamButton
             // 
@@ -344,7 +344,7 @@
             this.minParamButton.TabIndex = 0;
             this.minParamButton.Text = "Минимальные параметры";
             this.minParamButton.UseVisualStyleBackColor = true;
-            this.minParamButton.Click += new System.EventHandler(this.minParamButton_Click);
+            this.minParamButton.Click += new System.EventHandler(this.MinParamButton_Click);
             // 
             // checkBoxRounding
             // 
@@ -356,7 +356,7 @@
             this.checkBoxRounding.TabIndex = 10;
             this.checkBoxRounding.Text = "Скругление внешних углов";
             this.checkBoxRounding.UseVisualStyleBackColor = true;
-            this.checkBoxRounding.CheckedChanged += new System.EventHandler(this.checkBoxRounding_CheckedChanged);
+            this.checkBoxRounding.CheckedChanged += new System.EventHandler(this.CheckBoxRounding_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -421,7 +421,7 @@
             this.textBoxCorner.Name = "textBoxCorner";
             this.textBoxCorner.Size = new System.Drawing.Size(46, 20);
             this.textBoxCorner.TabIndex = 11;
-            this.textBoxCorner.TextChanged += new System.EventHandler(this.textBoxCorner_TextChanged);
+            this.textBoxCorner.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // MainForm
             // 

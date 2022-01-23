@@ -128,9 +128,9 @@ namespace ShelvesParameters
                                                 "равняться нулю, так как это поле " +
                                                 "вычисляется из суммы трех других");
                 }
-                _commonWallHeight = value + Thickness
-                                          + LeftWallHeight
-                                          + RightWallHeight;
+                _commonWallHeight = Thickness
+                                    + LeftWallHeight
+                                    + RightWallHeight;
             } 
         }
 
@@ -153,43 +153,43 @@ namespace ShelvesParameters
         /// <summary>
         /// Устанавливает значение параметра по названию
         /// </summary>
-        /// <param name="parameter">Имя параметра</param>
+        /// <param name="parameterName">Имя параметра</param>
         /// <param name="value">Значение</param>
-        public void SetValue(Parameter parameter, int value)
+        public void SetValue(ParameterName parameterName, int value)
         {
-            switch (parameter)
+            switch (parameterName)
             {
-                case Parameter.Thickness:
+                case ParameterName.Thickness:
                 {
                     Thickness = value;
                     break;
                 }
-                case Parameter.Length:
+                case ParameterName.Length:
                 {
                     Length = value;
                     break;
                 }
-                case Parameter.Width:
+                case ParameterName.Width:
                 {
                     Width = value;
                     break;
                 }
-                case Parameter.LeftWallHeight:
+                case ParameterName.LeftWallHeight:
                 {
                     LeftWallHeight = value;
                     break;
                 }
-                case Parameter.RightWallHeight:
+                case ParameterName.RightWallHeight:
                 {
                     RightWallHeight = value;
                     break;
                 }
-                case Parameter.CommonWallHeight:
+                case ParameterName.CommonWallHeight:
                 {
                     CommonWallHeight = value;
                     break;
                 }
-                case Parameter.Radius:
+                case ParameterName.Radius:
                 {
                     Radius = value;
                     break;
@@ -200,36 +200,36 @@ namespace ShelvesParameters
         /// <summary>
         /// Возвращает значение по названию параметра
         /// </summary>
-        /// <param name="parameter">Имя параметра</param>
-        public int GetValue(Parameter parameter)
+        /// <param name="parameterName">Имя параметра</param>
+        public int GetValue(ParameterName parameterName)
         {
-            switch (parameter)
+            switch (parameterName)
             {
-                case Parameter.Thickness:
+                case ParameterName.Thickness:
                 {
                     return Thickness;
                 }
-                case Parameter.Length:
+                case ParameterName.Length:
                 {
                     return Length;
                 }
-                case Parameter.Width:
+                case ParameterName.Width:
                 {
                     return Width;
                 }
-                case Parameter.LeftWallHeight:
+                case ParameterName.LeftWallHeight:
                 {
                     return LeftWallHeight;
                 }
-                case Parameter.RightWallHeight:
+                case ParameterName.RightWallHeight:
                 {
                     return RightWallHeight;
                 }
-                case Parameter.CommonWallHeight:
+                case ParameterName.CommonWallHeight:
                 {
                     return CommonWallHeight;
                 }
-                case Parameter.Radius:
+                case ParameterName.Radius:
                 {
                     return Radius;
                 }
@@ -237,44 +237,11 @@ namespace ShelvesParameters
 
             return 0;
         }
-
-        /// <summary>
-        /// Пустой конструктор
-        /// </summary>
-        public Parameters()
-        {
-
-        }
-
-        /// <summary>
-        /// Конструктор класса Parameters с установленными
-        /// значениями по умолчанию
-        /// </summary>
-        /// <param name="switchConstr">
-        /// 0 - параметры по умолчанию;
-        /// 1 - минимальные параметры;
-        /// 2 - максимальные параметры
-        /// </param>
-        public Parameters(int switchConstr)
-        {
-            switch (switchConstr)
-            {
-                case 0:
-                    DefaulParameters();
-                    break;
-                case 1:
-                    MinParameters();
-                    break;
-                case 2:
-                    MaxParameters();
-                    break;
-            }
-        }
         
         /// <summary>
-        /// Присвоение значений по умолчанию
+        /// Конструктор по умолчанию
         /// </summary>
-        private void DefaulParameters()
+        public Parameters()
         {
             Thickness = 17;
             Length = 600;
@@ -285,11 +252,11 @@ namespace ShelvesParameters
             Rounding = true;
             Radius = 40;
         }
-
+        
         /// <summary>
         /// Присвоение минимальных значений
         /// </summary>
-        private void MinParameters()
+        public void MinParameters()
         {
             Thickness = 15;
             Length = 500;
@@ -304,7 +271,7 @@ namespace ShelvesParameters
         /// <summary>
         /// Присвоение максимальных значений
         /// </summary>
-        private void MaxParameters()
+        public void MaxParameters()
         {
             Thickness = 20;
             Length = 700;
@@ -314,64 +281,6 @@ namespace ShelvesParameters
             CommonWallHeight = 0;
             Rounding = true;
             Radius = 50;
-        }
-
-        /// <summary>
-        /// Возвращает результат сравнения двух объектов Parameters
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-
-            if (ReferenceEquals(this, obj)) return true;
-
-            if (obj.GetType() != this.GetType()) return false;
-
-            return Equals((Parameters)obj);
-        }
-
-        /// <summary>
-        /// Возвращает результат сравнения двух объектов Parameters
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        protected bool Equals(Parameters other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-
-            if (ReferenceEquals(this, other)) return true;
-
-            return _thickness == other._thickness 
-                   && _length == other._length 
-                   && _width == other._width 
-                   && _leftWallHeight == other._leftWallHeight 
-                   && _rightWallHeight == other._rightWallHeight 
-                   && _commonWallHeight == other._commonWallHeight 
-                   && _radius == other._radius && Rounding == other.Rounding;
-        }
-
-        /// <summary>
-        /// Возвращает некоторое числовое значение,
-        /// которое будет соответствовать данному объекту или его хэш-код
-        /// С помощью него можно сравнивать объекты
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = _thickness;
-                hashCode = (hashCode * 397) ^ _length;
-                hashCode = (hashCode * 397) ^ _width;
-                hashCode = (hashCode * 397) ^ _leftWallHeight;
-                hashCode = (hashCode * 397) ^ _rightWallHeight;
-                hashCode = (hashCode * 397) ^ _commonWallHeight;
-                hashCode = (hashCode * 397) ^ _radius;
-                hashCode = (hashCode * 397) ^ Rounding.GetHashCode();
-                return hashCode;
-            }
         }
     }
 }
