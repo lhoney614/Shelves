@@ -7,6 +7,7 @@ namespace Shelves.UnitTests
     [TestFixture]
     class ParametersTest
     {
+        //TODO: 
         private static readonly Parameters SourceParameters = new Parameters();
 
         [TestCase(ParameterName.Thickness, 17,
@@ -139,8 +140,7 @@ namespace Shelves.UnitTests
                 "Не входящее в диапазон значение не выбросило исключение для "
                 + $"параметра: {parameterName} ");
         }
-
-        //TODO: RSDN
+        
         [TestCase(130, "Исключение из-за неправильной зависимости" +
                        " параметров: разница меньше 50",
             TestName = "Тест сеттера RightWallHeight " +

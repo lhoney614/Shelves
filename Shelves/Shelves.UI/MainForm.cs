@@ -73,8 +73,7 @@ namespace Shelves.UI
                         (ParameterName.Radius, true)}
             };
         }
-
-        //TODO: объединить две функции с входным параметром от checkbox
+        
         /// <summary>
         /// Изменение формы, если НЕ отмечено скругление углов
         /// </summary>
@@ -198,8 +197,7 @@ namespace Shelves.UI
             checkBoxRounding.Checked = parameters.Rounding;
             textBoxCorner.Text = parameters.Radius.ToString();
         }
-
-        //TODO: объединить событие для всех textbox
+        
         /// <summary>
         /// Событие на изменение текста
         /// </summary>
@@ -211,7 +209,6 @@ namespace Shelves.UI
             SetParameterValue(textBox);
         }
         
-        //TODO: RSDN
         /// <summary>
         /// Минимальные параметры полок
         /// </summary>
